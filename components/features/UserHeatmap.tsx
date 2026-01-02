@@ -40,7 +40,7 @@ export function UserHeatmap({ submissions }: { submissions: any[] }) {
                 }}
                 tooltipDataAttrs={(value: any) => ({
                     'data-tip': value && value.date ? `${value.date}: ${value.count} submissions` : 'No activity',
-                })}
+                } as any)}
                 showWeekdayLabels
             />
             <style jsx global>{`
