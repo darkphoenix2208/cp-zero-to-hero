@@ -1,34 +1,107 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { FlashbackCard } from '@/components/features/FlashbackCard';
-import { getDueFlashcards, processReview, addToReviewQueue, searchProblems, getAllFlashcards } from '@/app/actions';
-import { ArrowLeft, CheckCheck, Loader2, Plus, Search as SearchIcon, X } from 'lucide-react';
+import { useSession } from "next-auth/react";
+import { getDueFlashcards, getAllFlashcards, processReview } from '@/app/actions';
+import { ArrowLeft, Loader2, RefreshCcw, Search, ExternalLink, Plus } from 'lucide-react';
 import Link from 'next/link';
+import { usePlanetHealth, PlanetHealth } from '@/hooks/usePlanetHealth';
+import QuizModal from '@/components/features/flashback/QuizModal';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// Separate component for the "Node" (Box Style)
+const FlashbackNode = ({ card, onClick }: { card: any, onClick: () => void }) => {
+    // Determine health based on lastReviewedAt (or created if never)
+    const { health, visualState, filterStyle, isDecayed } = usePlanetHealth(card.lastReviewedAt);
+
+    return (
+        <motion.button
+            whileHover={{ scale: 1.05, y: -5 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={onClick}
+            className={`relative group flex flex-col items-center justify-between p-6 rounded-xl transition-all duration-500 border w-48 h-48 overflow-hidden`}
+            style={{
+                borderColor: isDecayed ? 'rgba(239, 68, 68, 0.5)' : 'rgba(39, 39, 42, 0.5)',
+                background: isDecayed ? 'linear-gradient(135deg, rgba(20,20,20,0.9), rgba(40,10,10,0.9))' : 'linear-gradient(135deg, rgba(24,24,27,0.9), rgba(9,9,11,0.9))',
+                boxShadow: isDecayed ? '0 0 20px rgba(239, 68, 68, 0.2)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            }}
+        >
+            {/* Background Noise/Rust if Decayed */}
+            {isDecayed && (
+                <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
+            )}
+
+            {/* Status Indicator */}
+            <div className="w-full flex justify-between items-start z-10">
+                <div className={`text-5xl font-bold tracking-tighter opacity-20 ${isDecayed ? 'text-red-500' : 'text-zinc-500'}`}>
+                    {Math.round(health)}%
+                </div>
+                {isDecayed ? (
+                    <RefreshCcw className="text-red-500 animate-spin-slow" size={20} />
+                ) : (
+                    <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_lime]" />
+                )}
+            </div>
+
+            {/* Label */}
+            <div className="z-10 text-left w-full mt-auto">
+                <div className="text-xs text-zinc-500 font-mono mb-1">{card.problemId}</div>
+                <div className={`font-bold leading-tight ${isDecayed ? 'text-red-200' : 'text-zinc-200 group-hover:text-white'}`}>
+                    {card.problemName}
+                </div>
+            </div>
+
+            {/* Health Bar at Bottom */}
+            <div className="absolute bottom-0 left-0 h-1 bg-zinc-800 w-full">
+                <div
+                    className={`h-full transition-all duration-1000 ${isDecayed ? 'bg-red-600' : 'bg-green-500'}`}
+                    style={{ width: `${health}%` }}
+                />
+            </div>
+        </motion.button>
+    );
+};
 
 export default function FlashbackPage() {
+    const { data: session, status } = useSession();
     const [cards, setCards] = useState<any[]>([]);
-    const [allCards, setAllCards] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
-    const [finished, setFinished] = useState(false);
 
-    // Search State
+    // Quiz State
+    const [selectedCard, setSelectedCard] = useState<any | null>(null);
+    const [isQuizOpen, setIsQuizOpen] = useState(false);
+
+    // Search State (Scanner)
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<any[]>([]);
     const [searching, setSearching] = useState(false);
     const [selectedProblem, setSelectedProblem] = useState<{ id: string; name: string } | null>(null);
     const [adding, setAdding] = useState(false);
 
-    useEffect(() => {
-        refreshCards();
-    }, []);
+    // Get Handle Helper
+    const getUserHandle = () => {
+        if (session?.user && (session.user as any).codeforcesHandle) {
+            return (session.user as any).codeforcesHandle;
+        }
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('cp-handle');
+        }
+        return null;
+    };
 
-    // Robust Debounce Search with Cleanup
+    useEffect(() => {
+        if (status === 'loading') return;
+        refreshCards();
+    }, [status, session]);
+
+    // Search Debouncer
     useEffect(() => {
         let active = true;
         const timer = setTimeout(async () => {
             if (query.length >= 2 && !selectedProblem) {
                 setSearching(true);
                 try {
+                    // Import dynamically if needed, or assume imported
+                    const { searchProblems } = await import('@/app/actions');
                     const hits = await searchProblems(query);
                     if (active) setResults(hits);
                 } catch (e) {
@@ -47,17 +120,14 @@ export default function FlashbackPage() {
     }, [query, selectedProblem]);
 
     const refreshCards = () => {
-        const handle = localStorage.getItem('cp-handle');
+        const handle = getUserHandle();
         if (handle) {
-            Promise.all([
-                getDueFlashcards(handle),
-                getAllFlashcards(handle)
-            ]).then(([due, all]) => {
-                setCards(due);
-                setAllCards(all);
+            getAllFlashcards(handle).then((all) => {
+                setCards(all);
                 setLoading(false);
             });
         } else {
+            console.log("No handle found in session or local storage.");
             setLoading(false);
         }
     };
@@ -80,194 +150,189 @@ export default function FlashbackPage() {
 
         setAdding(true);
         try {
-            const handle = localStorage.getItem('cp-handle');
+            const handle = getUserHandle();
             if (handle) {
+                const { addToReviewQueue } = await import('@/app/actions');
                 const res = await addToReviewQueue(handle, selectedProblem);
                 if (res.error) {
                     alert(res.error);
                 } else {
-                    // Clear ONLY on success
                     clearSelection();
-                    // Refresh to show the new card immediately
                     refreshCards();
-                    if (res.message) alert(res.message); // Optional: notify if rescheduled
+                    if (res.message) alert(res.message);
                 }
             } else {
-                alert("No user handle found. Please verify in Dashboard.");
+                alert("No linked Codeforces handle found. Please link your account in the Dashboard.");
             }
         } catch (error) {
             console.error(error);
-            alert("Failed to add problem. Please check your connection.");
+            alert("Failed to add problem.");
         } finally {
             setAdding(false);
         }
     };
 
-    const handleRate = async (quality: number) => {
-        const current = cards[0];
-        const remaining = cards.slice(1);
-        setCards(remaining); // Optimistic
-
-        await processReview({ id: current.id, quality });
-
-        if (remaining.length === 0) setFinished(true);
+    const handlePlanetClick = (card: any) => {
+        setSelectedCard(card);
+        setIsQuizOpen(true);
     };
 
+    const handleQuizComplete = async (success: boolean) => {
+        setIsQuizOpen(false);
+        if (!selectedCard) return;
+
+        // Optimistic Update
+        const quality = success ? 5 : 0; // Simple Binary for now
+
+        await processReview({ id: selectedCard.id, quality });
+
+        // Refresh to show updated health
+        refreshCards();
+        setSelectedCard(null);
+    };
+
+    // Mock Code for now (Real implementation would fetch submission source)
+    const mockCode = `
+// Source code for ${selectedCard?.problemName || 'Problem'}
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve() {
+    int n; cin >> n;
+    vector<int> a(n);
+    for(int &x : a) cin >> x;
+    
+    // Logic potentially relevant to the problem
+    sort(a.begin(), a.end());
+    
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
+        if(a[i] > ans) ans++;
+    }
+    cout << ans << endl;
+}
+
+int main() {
+    solve();
+    return 0;
+}
+`;
+
     return (
-        <div className="min-h-screen bg-black text-white font-sans selection:bg-pink-500/30 p-8">
-            <div className="max-w-4xl mx-auto space-y-8">
-                <Link
-                    href="/dashboard"
-                    className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition group"
-                >
-                    <ArrowLeft size={20} className="group-hover:-translate-x-1 transition" /> Back to Dashboard
-                </Link>
+        <div className="min-h-screen bg-black text-white font-sans overflow-hidden relative">
+            {/* Starry Background */}
+            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 pointer-events-none" />
 
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent mb-2">
-                        Flashback
-                    </h1>
-                    <p className="text-zinc-500">Spaced repetition to permanently cement your algorithms.</p>
-                </div>
-
-                {/* Search / Add Form */}
-                <form
-                    onSubmit={handleAdd}
-                    className="bg-zinc-900/50 p-4 rounded-xl border border-zinc-800 flex flex-col md:flex-row gap-4 items-center relative z-50"
-                >
-                    <div className="relative flex-1 w-full">
-                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
-                            {searching ? <Loader2 size={16} className="animate-spin" /> : <SearchIcon size={16} />}
-                        </div>
-                        <input
-                            value={query}
-                            onChange={(e) => {
-                                setQuery(e.target.value);
-                                if (selectedProblem) setSelectedProblem(null);
-                            }}
-                            placeholder="Search by ID (4A) or Name (Watermelon)..."
-                            className="bg-zinc-950 border border-zinc-800 rounded-lg pl-10 pr-10 py-2 w-full text-sm focus:ring-pink-500 focus:outline-none focus:border-pink-500/50 transition"
-                        />
-                        {query && (
-                            <button
-                                type="button"
-                                onClick={clearSelection}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white"
-                            >
-                                <X size={14} />
-                            </button>
-                        )}
-
-                        {/* Results Dropdown */}
-                        {results.length > 0 && !selectedProblem && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl overflow-hidden max-h-60 overflow-y-auto z-50">
-                                {results.map((p) => (
-                                    <button
-                                        key={p.id}
-                                        type="button"
-                                        onClick={() => handleSelect(p)}
-                                        className="w-full text-left px-4 py-3 hover:bg-zinc-800 transition border-b border-zinc-800/50 last:border-0 flex items-center justify-between group"
-                                    >
-                                        <span className="text-sm text-zinc-200 font-bold group-hover:text-pink-400 transition">
-                                            {p.id}
-                                        </span>
-                                        <span className="text-sm text-zinc-400 truncate ml-4 flex-1">{p.name}</span>
-                                        <span className="text-xs text-zinc-600 bg-zinc-950 px-2 py-1 rounded">
-                                            {p.rating || 'N/A'}
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
-                        )}
+            <div className="relative z-10 max-w-7xl mx-auto p-8 h-screen flex flex-col">
+                {/* Header */}
+                <div className="flex justify-between items-start mb-12">
+                    <div>
+                        <Link
+                            href="/dashboard"
+                            className="inline-flex items-center gap-2 text-zinc-500 hover:text-white transition group mb-4"
+                        >
+                            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition" /> Output
+                        </Link>
+                        <h1 className="text-5xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent tracking-tight">
+                            Memory Galaxy
+                        </h1>
+                        <p className="text-zinc-500 mt-2 text-lg">
+                            Maintain the health of your knowledge nodes. <span className="text-pink-400">Rust means decay.</span>
+                        </p>
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={adding || !selectedProblem}
-                        className="w-full md:w-auto bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-                    >
-                        {adding ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
-                        {adding ? 'Adding...' : 'Add to Queue'}
-                    </button>
-                </form>
-
-                {/* Queue Display */}
-                <div className="flex justify-center min-h-[400px] items-center">
-                    {loading ? (
-                        <Loader2 className="animate-spin text-zinc-600" size={40} />
-                    ) : finished || cards.length === 0 ? (
-                        <div className="text-center space-y-4 animate-in fade-in zoom-in duration-500">
-                            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
-                                <CheckCheck className="text-green-500" size={40} />
-                            </div>
-                            <h2 className="text-2xl font-bold text-white">All Caught Up!</h2>
-                            <p className="text-zinc-400">You have no pending reviews for today.</p>
-                            <Link
-                                href="/dashboard"
-                                className="inline-block mt-4 text-pink-400 hover:text-pink-300 font-bold"
-                            >
-                                Return Home
-                            </Link>
+                    <div className="flex flex-col items-end gap-4">
+                        <div className="flex items-center gap-2 text-xs text-zinc-500 border border-zinc-800 px-3 py-1 rounded-full">
+                            <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_lime]" /> Fresh
+                            <span className="w-2 h-2 rounded-full bg-zinc-500 ml-2" /> Fading
+                            <span className="w-2 h-2 rounded-full bg-orange-700 ml-2 shadow-[0_0_10px_orange]" /> Rusted
                         </div>
-                    ) : (
-                        <div className="w-full">
-                            <div className="text-center mb-4 text-zinc-600 text-sm font-bold tracking-widest uppercase">
-                                Queue: {cards.length} Remaining
-                            </div>
-                            <FlashbackCard card={cards[0]} onRate={handleRate} />
-                        </div>
-                    )}
-                </div>
-            </div>
 
-            {/* Full History List */}
-            <div className="mt-12 border-t border-zinc-800 pt-8">
-                <h3 className="text-xl font-bold text-zinc-300 mb-4 flex items-center gap-2">
-                    <Loader2 className="text-pink-500" size={20} /> Repository ({allCards.length})
-                </h3>
-                <div className="bg-zinc-900/30 rounded-xl border border-zinc-800 overflow-hidden">
-                    <table className="w-full text-sm text-left">
-                        <thead className="bg-zinc-900 text-zinc-400 font-medium">
-                            <tr>
-                                <th className="px-4 py-3">Problem</th>
-                                <th className="px-4 py-3">Status</th>
-                                <th className="px-4 py-3">Next Review</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-zinc-800">
-                            {allCards.map(card => (
-                                <tr key={card.id} className="hover:bg-zinc-900/50 transition">
-                                    <td className="px-4 py-3 font-mono text-zinc-300">
-                                        <span className="text-pink-400 font-bold mr-2">{card.problemId}</span>
-                                        {card.problemName}
-                                    </td>
-                                    <td className="px-4 py-3">
-                                        <span className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-wide ${card.status === 'mastered' ? 'bg-yellow-500/10 text-yellow-500' :
-                                            card.status === 'reviewing' ? 'bg-blue-500/10 text-blue-400' : 'bg-zinc-800 text-zinc-500'
-                                            }`}>
-                                            {card.status}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-3 text-zinc-500">
-                                        {card.isDue ? (
-                                            <span className="text-green-400 font-bold flex items-center gap-1"><CheckCheck size={12} /> Now</span>
-                                        ) : (
-                                            new Date(card.nextReviewDate).toLocaleDateString()
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                            {allCards.length === 0 && (
-                                <tr>
-                                    <td colSpan={3} className="px-4 py-8 text-center text-zinc-600">
-                                        No problems tracked yet. Use the search above to add one.
-                                    </td>
-                                </tr>
+                        {/* SCANNER (Search Bar) */}
+                        <form onSubmit={handleAdd} className="relative z-50 flex items-center gap-2 bg-zinc-900/80 backdrop-blur p-1 pl-4 rounded-full border border-zinc-700 shadow-xl w-[320px] transition-all focus-within:w-[400px] focus-within:border-indigo-500">
+                            <div className="text-zinc-500">
+                                {searching ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
+                            </div>
+                            <input
+                                value={query}
+                                onChange={(e) => {
+                                    setQuery(e.target.value);
+                                    if (selectedProblem) setSelectedProblem(null);
+                                }}
+                                placeholder="Scan for problems (e.g. 4A)..."
+                                className="bg-transparent border-none text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-0 flex-1 w-full"
+                            />
+                            {query && (
+                                <button type="button" onClick={clearSelection} className="text-zinc-500 hover:text-white px-2">
+                                    <ExternalLink size={12} className="rotate-45" /> {/* Use X icon ideally, reusing import */}
+                                </button>
                             )}
-                        </tbody>
-                    </table>
+
+                            <button
+                                type="submit"
+                                disabled={adding || !selectedProblem}
+                                className={`bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-full transition disabled:opacity-50 disabled:grayscale ${selectedProblem ? 'animate-pulse' : ''}`}
+                            >
+                                {adding ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
+                            </button>
+
+                            {/* Dropdown Results */}
+                            {results.length > 0 && !selectedProblem && (
+                                <div className="absolute top-full right-0 mt-3 w-full bg-zinc-900/95 backdrop-blur border border-zinc-700 rounded-xl shadow-2xl overflow-hidden max-h-60 overflow-y-auto">
+                                    {results.map((p) => (
+                                        <button
+                                            key={p.id}
+                                            type="button"
+                                            onClick={() => handleSelect(p)}
+                                            className="w-full text-left px-4 py-3 hover:bg-white/5 transition border-b border-white/5 last:border-0 flex items-center justify-between group"
+                                        >
+                                            <span className="text-sm text-indigo-300 font-bold group-hover:text-white">
+                                                {p.id}
+                                            </span>
+                                            <span className="text-sm text-zinc-400 truncate ml-4 flex-1">{p.name}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </form>
+                    </div>
                 </div>
+
+                {/* The Galaxy Grid */}
+                {loading ? (
+                    <div className="flex-1 flex items-center justify-center">
+                        <Loader2 className="animate-spin text-purple-500 w-12 h-12" />
+                    </div>
+                ) : cards.length === 0 ? (
+                    <div className="flex-1 flex flex-col items-center justify-center text-zinc-600">
+                        <p className="text-xl font-medium">Your galaxy is empty.</p>
+                        <p className="text-sm mt-2">Add problems from the Search bar to track them.</p>
+                        {/* Re-add search bar later if needed, or link to search */}
+                    </div>
+                ) : (
+                    <div className="flex-1 relative">
+                        {/* Physics-like layout or Grid for now */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 place-items-center">
+                            {cards.map(card => (
+                                <FlashbackNode
+                                    key={card.id}
+                                    card={card}
+                                    onClick={() => handlePlanetClick(card)}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
+
+            {/* Quiz Modal Integration */}
+            <QuizModal
+                isOpen={isQuizOpen}
+                onClose={() => setIsQuizOpen(false)}
+                onComplete={handleQuizComplete}
+                code={mockCode} // Passing mock code for now
+                topic={selectedCard?.problemName || 'Algorithm'}
+            />
         </div>
     );
 }

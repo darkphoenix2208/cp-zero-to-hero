@@ -484,7 +484,9 @@ export async function processReview(request: { id: string; quality: number }) {
             interval,
             repetitions,
             nextReviewDate: nextDate,
-            lastReviewedAt: new Date(),
+            // Only update lastReviewedAt if successful (repaired). 
+            // If failed, visual health should remain low (rusted).
+            ...(q >= 3 ? { lastReviewedAt: new Date() } : {}),
             status: q >= 4 ? "mastered" : "reviewing"
         }
     });
