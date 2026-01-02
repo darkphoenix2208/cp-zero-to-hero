@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// --------------------------------------
+// Core User & Stats
+// --------------------------------------
+
+// --------------------------------------
+// Core User & Stats (NextAuth Compatible)
+// --------------------------------------
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  
+  // Custom Fields
+  codeforcesHandle String?   @unique // Linked CF Handle
+  
+  // Legacy/App Fields (Mapped to new structure or kept)
+  rating        Int      @default(0)
+  rank          String?
+  currentTier   Int      @default(800)
+  solvedCount   Int      @default(0)
+  createdAt     DateTime @default(now())
+  
+  accounts      Account[]
+  sessions      Session[]
+  
+  // Relations
+  solvedProblems SolvedProblem[]
+  stats         UserStats?
+  flashcards    ReviewQueue[]
+  skills        UserSkill[]
+  pinnedRivals  PinnedRival[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model UserStats {
+  userId        String   @id
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  currentStreak Int      @default(0)
+  totalSolved   Int      @default(0)
+  maxRating     Int      @default(0)
+  lastActive    DateTime?
+}
+
+model PinnedRival {
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rivalHandle  String
+  pinnedAt     DateTime  @default(now())
+
+  @@id([userId, rivalHandle])
+}
+
+// --------------------------------------
+// 🧠 Flashback (Spaced Repetition System)
+// --------------------------------------
+
+model ReviewQueue {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId       String   // e.g. "1500A"
+  problemName     String
+  tags            String?  // stored as comma-separated
+  
+  // SM-2 Algorithm Fields
+  easeFactor      Float    @default(2.5)
+  interval        Int      @default(0)
+  repetitions     Int      @default(0)
+  nextReviewDate  DateTime @default(now())
+  
+  lastReviewedAt  DateTime?
+  status          String   @default("learning") // learning, reviewing, mastered
+
+  @@unique([userId, problemId])
+}
+
+// --------------------------------------
+// 🌳 RPG Skill Tree
+// --------------------------------------
+
+model Skill {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique // e.g., "binary-search"
+  tier        Int      @default(1)
+  
+  dependencies  SkillDependency[] @relation("Dependency")
+  prerequisites SkillDependency[] @relation("Prerequisite")
+  userProgress  UserSkill[]
+}
+
+model SkillDependency {
+  skillId        Int
+  skill          Skill @relation("Dependency", fields: [skillId], references: [id])
+  prerequisiteId Int
+  prerequisite   Skill @relation("Prerequisite", fields: [prerequisiteId], references: [id])
+  
+  @@id([skillId, prerequisiteId])
+}
+
+model UserSkill {
+  userId       String
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skillId      Int
+  skill        Skill   @relation(fields: [skillId], references: [id])
+  
+  masteryLevel Int     @default(0) // 0-100%
+  isUnlocked   Boolean @default(false)
+
+  @@id([userId, skillId])
+}
+
+// --------------------------------------
+// 📚 Knowledge Hub & Resources
+// --------------------------------------
+
+model Resource {
+  id          String   @id @default(uuid())
+  title       String
+  url         String
+  type        String   // "VIDEO", "BLOG", "TOOL", "PRACTICE"
+  tags        String   // Stored as comma-separated string for SQLite
+  difficulty  String?
+  upvotes     Int      @default(0)
+  isOfficial  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+// --------------------------------------
+// 🗺️ Smart Roadmap Tracker
+// --------------------------------------
+
+model SolvedProblem {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId String   // "1500A"
+  rating    Int
+  solvedAt  DateTime @default(now())
+
+  @@unique([userId, problemId])
+}

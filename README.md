@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# CodeForge (CP-ZeroToHero) ⚔️
 
-First, run the development server:
+**The Ultimate Gamified Competitve Programming Training Platform.**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+CodeForge turns your journey from "Newbie" to "Grandmaster" into an RPG. Track your XP, fight boss battles (hard problems), visualize algorithms, and get AI-powered mentoring without spoilers.
+
+![Dashboard Preview](./public/landing-preview.png)
+
+## 🚀 Key Features
+
+### 1. The RPG Skill Tree (DAG) 🗺️
+*   **Visual Roadmap:** Navigate a directed acyclic graph of CP topics (Binary Search → DP → Graphs).
+*   **Progression:** Unlock new nodes by solving prerequisite problems.
+*   **Boss Fights:** Clear "Boss Nodes" under time pressure to advance to the next sector.
+
+### 2. The AI Dojo 🥋
+*   **Code Surgeon:** Paste your broken code. The AI analyzes it and shows a "Diff View" of fixes without rewriting everything.
+*   **Sensei Mode:** Stuck? Ask for a hint. The AI gently nudges you without spoiling the solution.
+*   **Judge Watcher:** Real-time polling of Codeforces submissions.
+
+### 3. Algorithm Studio 🎨
+*   **Graph-O-Vision:** A CS-Academy style graph editor. Paste edge lists and see a **Static, Stable** force-directed layout.
+*   **Array Animator:** Visualize sorting and searching algorithms step-by-step.
+*   **Recursion Tree:** See the call stack of Fibonacci/DFS visually.
+
+### 4. Flashback (The Ritual) 🕯️
+*   **Spaced Repetition:** The app tracks your "Forgetting Curve".
+*   **Daily Review:** You are prompted to re-solve problems 1 day, 3 days, and 1 week after solving them to ensure retention.
+
+### 5. Mock Interviewer 🎙️
+*   **Voice Mode:** A comprehensive mock interview simulation using Gemini.
+*   **Live Coding:** Speak your thought process while coding in the shared editor.
+
+### 6. Contest Calendar 🏆
+*   **Aggregator:** See upcoming rounds from Codeforces, LeetCode, AtCoder, and CodeChef.
+*   **Virtual Participation:** "Time Travel" to past contests and simulate them live.
+
+---
+
+## 🛠️ Tech Stack
+
+*   **Framework:** Next.js 14 (App Router)
+*   **Language:** TypeScript
+*   **Styling:** Tailwind CSS + Framer Motion
+*   **Database:** PostgreSQL (via Prisma ORM)
+*   **Auth:** NextAuth (Google Provider)
+*   **AI:** Groq SDK (Llama 3 70b)
+*   **Visuals:** Vis.js (Graphs), React Flow (Skill Tree)
+
+---
+
+## ⚡ Getting Started
+
+### Prerequisites
+*   Node.js 18+
+*   PostgreSQL Database
+
+### Installation
+
+1.  **Clone the repo**
+    ```bash
+    git clone https://github.com/yourusername/cp-zero-to-hero.git
+    cd cp-zero-to-hero
+    ```
+
+2.  **Install dependencies**
+    ```bash
+    npm install
+    # Note: If you face peer-dep issues with react-graph-vis:
+    npm install --legacy-peer-deps
+    ```
+
+3.  **Setup Environment Variables**
+    Create a `.env` file:
+    ```env
+    DATABASE_URL="postgresql://..."
+    AUTH_SECRET="your-secret"
+    GOOGLE_CLIENT_ID="..."
+    GOOGLE_CLIENT_SECRET="..."
+    GROQ_API_KEY="..."
+    ```
+
+4.  **Run Database Migrations**
+    ```bash
+    npx prisma generate
+    npx prisma db push
+    ```
+
+5.  **Start the Server**
+    ```bash
+    npm run dev
+    ```
+
+Visit `http://localhost:3000` and start your journey!
+
+---
+
+## 📂 Project Structure
+
+```
+/app
+  /api          # Next.js API Routes (AI, Auth, Judge)
+  /dashboard    # Main User Hub
+  /dojo         # AI Mentorship Page
+  /studio       # Algorithm Visualizers
+  /guide        # User Manual
+/components
+  /features     # Complex Features (GraphVis, InterviewRoom)
+  /layout       # Navbar, Sidebar
+/lib
+  /prisma       # DB Client
+  /gemini       # AI Integration (Legacy)
+  /groq         # AI Integration (Active)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛡️ License
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT. Build something great.
