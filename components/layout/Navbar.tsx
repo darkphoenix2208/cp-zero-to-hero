@@ -54,7 +54,12 @@ export function Navbar() {
         { name: 'Blogs', href: '/blog-hunter', icon: BookOpen },
     ];
 
-    const allNavItems = [...mainNavItems, ...arcadeNavItems, { name: 'Guide', href: '/guide', icon: MapIcon }];
+    const guideItem = { name: 'Guide', href: '/guide', icon: MapIcon };
+
+    // Only show full menu if authenticated
+    const allNavItems = status === 'authenticated'
+        ? [...mainNavItems, ...arcadeNavItems, guideItem]
+        : [guideItem];
 
     const isActive = (path: string) => pathname === path;
 
@@ -67,50 +72,54 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto px-4">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo */}
-                    <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent hover:opacity-80 transition">
+                    <Link href="/" className="flex items-center gap-2 font-bold text-xl bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent hover:opacity-80 transition">
                         CP-ZeroToHero
                     </Link>
 
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-1">
-                        {mainNavItems.map((item) => (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className={cn(
-                                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                                    isActive(item.href)
-                                        ? "bg-primary/10 text-primary"
-                                        : "text-zinc-500 hover:text-foreground hover:bg-zinc-800/50"
-                                )}
-                            >
-                                <item.icon size={16} />
-                                <span className="hidden lg:inline">{item.name}</span>
-                                <span className="lg:hidden">{item.shortName || item.name}</span>
-                            </Link>
-                        ))}
-
-                        {/* Arcade Dropdown */}
-                        <div className="relative group">
-                            <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-zinc-500 hover:text-foreground hover:bg-zinc-800/50 transition-colors">
-                                <Sparkles size={16} /> Arcade
-                            </button>
-                            <div className="absolute top-full left-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl overflow-hidden py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                                {arcadeNavItems.map((item) => (
+                        {status === 'authenticated' && (
+                            <>
+                                {mainNavItems.map((item) => (
                                     <Link
                                         key={item.href}
                                         href={item.href}
                                         className={cn(
-                                            "flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-zinc-800",
-                                            isActive(item.href) ? "text-primary" : "text-zinc-400"
+                                            "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                                            isActive(item.href)
+                                                ? "bg-primary/10 text-primary"
+                                                : "text-zinc-500 hover:text-foreground hover:bg-zinc-800/50"
                                         )}
                                     >
                                         <item.icon size={16} />
-                                        {item.name}
+                                        <span className="hidden lg:inline">{item.name}</span>
+                                        <span className="lg:hidden">{item.shortName || item.name}</span>
                                     </Link>
                                 ))}
-                            </div>
-                        </div>
+
+                                {/* Arcade Dropdown */}
+                                <div className="relative group">
+                                    <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-zinc-500 hover:text-foreground hover:bg-zinc-800/50 transition-colors">
+                                        <Sparkles size={16} /> Arcade
+                                    </button>
+                                    <div className="absolute top-full left-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl overflow-hidden py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                                        {arcadeNavItems.map((item) => (
+                                            <Link
+                                                key={item.href}
+                                                href={item.href}
+                                                className={cn(
+                                                    "flex items-center gap-3 px-4 py-3 text-sm transition-colors hover:bg-zinc-800",
+                                                    isActive(item.href) ? "text-primary" : "text-zinc-400"
+                                                )}
+                                            >
+                                                <item.icon size={16} />
+                                                {item.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </>
+                        )}
 
                         <Link
                             href="/guide"

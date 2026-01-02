@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, Code, Trophy, Zap, ChevronRight } from 'lucide-react';
+import { Footer } from '@/components/layout/Footer';
 
 export default function Home() {
   return (
@@ -61,6 +62,8 @@ export default function Home() {
           />
         </Link>
       </div>
+
+      <Footer />
     </div>
   );
 }
