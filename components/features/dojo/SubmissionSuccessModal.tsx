@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog"; // Assuming we have shadcn or similar, or will build a simple modal
+import { Dialog, DialogContent } from "../../ui/dialog"; // Assuming we have shadcn or similar, or will build a simple modal
 import { CheckCircle2, Loader2, ArrowRight, X } from "lucide-react";
 import Editor from "@monaco-editor/react";
 import { toast } from "sonner";
