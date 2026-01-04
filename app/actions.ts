@@ -210,7 +210,7 @@ export async function getRivals(handle: string) {
     // Fetch live data from CF for all rivals
     const promises = rivals.map(async (h) => {
         const info = await getCFUser(h);
-        return info || { handle: h, rating: 0, rank: 'unrated' }; // Fallback
+        return info || { handle: h, rating: 0, rank: 'unrated', titlePhoto: 'https://userpic.codeforces.org/no-title.jpg' }; // Fallback
     });
 
     return await Promise.all(promises);
@@ -513,50 +513,49 @@ export async function getAllFlashcards(handle: string) {
 // -----------------------------------------------------------------------------
 
 export async function getRivalActivity(handles: string[]) {
-    const results = [];
-
-    // Sequential fetching to respect rate limits (5 req/sec)
-    for (const handle of handles) {
+    // Parallel fetching with 5-minute cache
+    const promises = handles.map(async (handle) => {
         try {
-            const res = await fetch(`https://codeforces.com/api/user.status?handle=${handle}&from=1&count=10`);
+            const res = await fetch(
+                `https://codeforces.com/api/user.status?handle=${handle}&from=1&count=10`,
+                { next: { revalidate: 300 } }
+            );
             const data = await res.json();
             if (data.status === 'OK') {
-                results.push(data.result.map((sub: any) => ({ ...sub, handle })));
-            } else {
-                console.warn(`[RivalActivity] Failed for ${handle}: ${data.comment}`);
+                return data.result.map((sub: any) => ({ ...sub, handle }));
             }
         } catch (e) {
             console.error(`[RivalActivity] Network error for ${handle}`);
         }
-        // Small delay between requests (250ms)
-        await new Promise(r => setTimeout(r, 250));
-    }
+        return [];
+    });
 
+    const results = await Promise.all(promises);
     const allSubs = results.flat();
+
     // Sort by recent first
     return allSubs.sort((a, b) => b.creationTimeSeconds - a.creationTimeSeconds).slice(0, 30);
 }
 
 export async function getRivalHistory(handles: string[]) {
-    const results = [];
-
-    for (const handle of handles) {
+    // Parallel fetching with 1-hour cache (Ratings update rarely)
+    const promises = handles.map(async (handle) => {
         try {
-            const res = await fetch(`https://codeforces.com/api/user.rating?handle=${handle}`);
+            const res = await fetch(
+                `https://codeforces.com/api/user.rating?handle=${handle}`,
+                { next: { revalidate: 3600 } }
+            );
             const data = await res.json();
             if (data.status === 'OK') {
-                results.push({ handle, history: data.result });
-            } else {
-                results.push({ handle, history: [] }); // Push empty so graph doesn't break
+                return { handle, history: data.result };
             }
         } catch (e) {
             console.error(e);
-            results.push({ handle, history: [] });
         }
-        await new Promise(r => setTimeout(r, 250));
-    }
+        return { handle, history: [] };
+    });
 
-    return results;
+    return await Promise.all(promises);
 }
 
 export async function verifyOwnership(handle: string, token: string) {

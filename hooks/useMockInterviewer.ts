@@ -12,13 +12,37 @@ export function useMockInterviewer() {
     const lastCheckTime = useRef<number>(Date.now());
     const lineCountRef = useRef<number>(0);
 
+    const [seenQuestionIds, setSeenQuestionIds] = useState<number[]>(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('seen_question_ids');
+            return saved ? JSON.parse(saved) : [];
+        }
+        return [];
+    });
+
+    // Helper to add ID
+    const markQuestionAsSeen = (id: number) => {
+        setSeenQuestionIds(prev => {
+            if (prev.includes(id)) return prev;
+            const next = [...prev, id];
+            localStorage.setItem('seen_question_ids', JSON.stringify(next));
+            return next;
+        });
+    };
+
     const triggerInterruption = async (code: string, isManual = false, extraData?: any) => {
         setIsProcessing(true);
         try {
             const res = await fetch('/api/interview/interrupt', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ type: 'interrupt', code, force: isManual, ...extraData })
+                body: JSON.stringify({
+                    type: 'interrupt',
+                    code,
+                    force: isManual,
+                    ignoreIds: seenQuestionIds, // Send history
+                    ...extraData
+                })
             });
 
             if (!res.ok) {
@@ -28,9 +52,15 @@ export function useMockInterviewer() {
             const data = await res.json();
 
             if (data.trigger) {
-                setQuestion(data.question);
+                const cleanQuestion = typeof data.question === 'object' ? JSON.stringify(data.question) : String(data.question || "Can you explain this?");
+                setQuestion(cleanQuestion);
                 setIsLocked(true);
                 toast.warning("INTERRUPTION!", { description: "The interviewer has a question." });
+
+                // Track ID if provided
+                if (data.question_id) {
+                    markQuestionAsSeen(data.question_id);
+                }
             } else if (isManual) {
                 // If Manually triggered and NO question, that's a Good Thing!
                 toast.success("Accepted", { description: "The interviewer is satisfied with your code." });
@@ -48,7 +78,7 @@ export function useMockInterviewer() {
         }
     };
 
-    const validateAnswer = async (code: string, answer: string) => {
+    const validateAnswer = async (code: string, answer: string, languageId?: string) => {
         setIsProcessing(true);
         try {
             const res = await fetch('/api/interview/interrupt', {
@@ -58,19 +88,24 @@ export function useMockInterviewer() {
                     type: 'validate',
                     code,
                     question,
-                    answer
+                    answer,
+                    language: languageId // Pass language to backend
                 })
             });
             const data = await res.json();
 
+            const cleanFeedback = typeof data.feedback === 'object'
+                ? JSON.stringify(data.feedback)
+                : String(data.feedback || "Check your logic.");
+
             if (data.correct) {
-                toast.success("Good answer.", { description: data.feedback });
+                toast.success("Good answer.", { description: cleanFeedback });
                 setIsLocked(false);
                 setQuestion(null);
                 setFeedback(null);
             } else {
-                toast.error("Not quite.", { description: data.feedback });
-                setFeedback(data.feedback);
+                toast.error("Not quite.", { description: cleanFeedback });
+                setFeedback(cleanFeedback);
                 // Remain locked
             }
 

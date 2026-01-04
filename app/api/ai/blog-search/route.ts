@@ -8,28 +8,32 @@ export async function POST(req: NextRequest) {
         const { query } = await req.json();
 
         const prompt = `
-        You are an expert Competitive Programmer. The user is searching for tutorials on: "${query}".
-        Return a JSON object with a list of 5-8 HIGH QUALITY resources.
+        You are an expert Competitive Programmer and "Blog Hunter".
+        The user is searching for the BEST tutorials/resources on: "${query}".
 
-        CRITICAL: DO NOT GUESS DIRECT URLS. THEY OFTEN 404.
-        Instead, construct Google Search URLs for specific reputable sites.
+        Your goal is to find "Hidden Gems" and high-quality resources that are better than generic SEO spam.
+        Prioritize these specifically:
+        1. **CP-Algorithms** (The gold standard for algorithms)
+        2. **Codeforces Blogs** (High rated community posts ONLY)
+        3. **USACO Guide** (Structured learning paths)
+        4. **E-Maxx** (Original Russian translation if applicable)
+        5. **Topcoder Tutorials** (Classic deep dives)
+        6. **AtCoder Projects** (Library implementations)
+        7. **CSES Handbook** (Book references)
 
-        INSTRUCTIONS:
-        1. **CP-Algorithms**: URL should be "https://www.google.com/search?q=site:cp-algorithms.com+${query}"
-        2. **Codeforces**: URL should be "https://www.google.com/search?q=site:codeforces.com+${query}+tutorial"
-        3. **USACO Guide**: URL should be "https://www.google.com/search?q=site:usaco.guide+${query}"
-        4. **GeeksForGeeks/Other**: "https://www.google.com/search?q=${query}+tutorial"
-
-        Your job is to identify the BEST SITE for the specific topic (e.g. CP-Algorithms is best for Graphs, USACO for DP) and generate the search link for THAT site.
-
+        Return a JSON object with 10-12 HIGH QUALITY resources. A mix of Articles, Videos (only if exceptional), and Problem Sets.
+        
+        CRITICAL: DO NOT GUESS DIRECT URLS if you aren't sure. Construct "site:..." Google Search URLs to be safe.
+        
         JSON Format:
         {
             "results": [
                 { 
-                    "title": "Topic Name (Source)", 
+                    "title": "Resource Title", 
                     "url": "https://www.google.com/search?q=...", 
-                    "author": "Source Name", 
-                    "snippet": "Brief summary of why this source is good." 
+                    "author": "Source/Author", 
+                    "snippet": "Why is this a hidden gem? (e.g. 'Best visual explanation', ' Deep mathematical proof')",
+                    "type": "Article" | "Video" | "Course" | "Problem Set"
                 }
             ]
         }

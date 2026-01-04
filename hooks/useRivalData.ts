@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { getRivals, getRivalActivity, getRivalHistory } from '@/app/actions';
 import type { CFUser } from '@/lib/codeforces';
 
-export function useRivalData(user: CFUser | null) {
-    const [rivals, setRivals] = useState<any[]>([]);
+export function useRivalData(user: CFUser | null, initialRivals: CFUser[] = []) {
+    const [rivals, setRivals] = useState<any[]>(initialRivals);
     const [activity, setActivity] = useState<any[]>([]);
     const [graphData, setGraphData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -14,15 +14,26 @@ export function useRivalData(user: CFUser | null) {
         const fetchData = async () => {
             setLoading(true);
             try {
-                // 1. Get List of Rivals
-                const rivalList = await getRivals(user.handle);
-                setRivals(rivalList);
+                // 1. Identify Rivals
+                // If initialRivals provided (Server Side), use them immediately.
+                // Otherwise fetch them (Client Side Fallback).
+                let currentRivals = initialRivals;
+
+                if (currentRivals.length === 0) {
+                    // Check if we really need to fetch or if user just has 0 rivals
+                    // For safety, we can fetch if initial was empty, but ideally we trust server.
+                    // But let's fetch to be safe if `initialRivals` wasn't passed (e.g. older parent)
+                    const fetched = await getRivals(user.handle);
+                    currentRivals = fetched;
+                    setRivals(fetched);
+                }
 
                 // 2. Prepare all handles (Me + Rivals)
                 // rivals return from getRivals are CFUser objects, so use .handle
-                const allHandles = [user.handle, ...rivalList.map((r: any) => r.handle)];
+                const allHandles = [user.handle, ...currentRivals.map((r: any) => r.handle)];
 
-                // 3. Fetch Data Sereially/Safely via Actions
+                // 3. Parallel Fetching (Activity + History)
+                // Now executes immediately without waiting for a separate getRivals step if initial passed
                 const [feedData, historyRes] = await Promise.all([
                     getRivalActivity(allHandles),
                     getRivalHistory(allHandles)
@@ -82,7 +93,7 @@ export function useRivalData(user: CFUser | null) {
         };
 
         fetchData();
-    }, [user]);
+    }, [user]); // Removed initialRivals from dep array to prevent re-fetch loops if strict mode
 
     return { rivals, activity, graphData, loading };
 }

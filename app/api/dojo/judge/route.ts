@@ -2,8 +2,61 @@ import { NextRequest, NextResponse } from 'next/server';
 import { groq } from '@/lib/groq';
 import { executeCode, PistonResult } from '@/lib/piston';
 import { getProblemSamples } from '@/lib/cf_scraper';
+import { supabase } from '@/lib/supabase';
 
 const MODEL = "llama-3.3-70b-versatile";
+
+// Helper Functions for RAG (Replicated from interrupt route for stability)
+function mapTopicToCategory(topic: string): string {
+    const t = topic.toLowerCase();
+    if (t.includes("tree") || t.includes("bst")) return "Trees";
+    if (t.includes("graph") || t.includes("bfs") || t.includes("dfs") || t.includes("union")) return "Graphs";
+    if (t.includes("list") || t.includes("node")) return "Linked List";
+    if (t.includes("matrix") || t.includes("grid")) return "Graphs"; // Matrices often graph problems
+    if (t.includes("dynamic") || t.includes("dp") || t.includes("memo")) return "Dynamic Programming";
+    if (t.includes("recursion") || t.includes("backtrack")) return "Backtracking";
+    if (t.includes("heap") || t.includes("queue") || t.includes("priority")) return "Heap / Priority Queue";
+    if (t.includes("stack")) return "Stack";
+    if (t.includes("search") || t.includes("binary search") || t.includes("bisect")) return "Binary Search";
+    if (t.includes("sort") || t.includes("window") || t.includes("pointer")) return "Sliding Window"; // or Two Pointers
+    if (t.includes("bit")) return "Bit Manipulation"; // Need to ensure category exists or map to Math
+    return "Arrays & Hashing"; // Default fallback
+}
+
+async function extractTopic(code: string): Promise<string> {
+    try {
+        const completion = await groq.chat.completions.create({
+            messages: [
+                { role: "system", content: 'Identify the main data structure or algorithm of this code (e.g., "Linked List", "Binary Tree", "DP", "Graph"). Return ONLY the name.' },
+                { role: "user", content: code.slice(0, 500) }
+            ],
+            model: MODEL,
+            temperature: 0.1,
+            max_tokens: 20
+        });
+        return completion.choices[0]?.message?.content?.trim() || "General";
+    } catch (e) {
+        return "General";
+    }
+}
+
+async function getRelevantQuestion(category: string): Promise<string | null> {
+    try {
+        const { data, error } = await supabase
+            .from('interview_questions')
+            .select('question_text')
+            .eq('category', category)
+            .limit(200); // Expanded pool for better variety
+
+        if (error || !data || data.length === 0) return null;
+
+        // True Random Pick from a larger pool
+        const randomIndex = Math.floor(Math.random() * data.length);
+        return data[randomIndex].question_text;
+    } catch (e) {
+        return null;
+    }
+}
 
 // System Prompt now focuses on Generating Test Cases, NOT judging.
 const GENERATOR_PROMPT = `
@@ -116,13 +169,33 @@ export async function POST(req: NextRequest) {
             passed++;
         }
 
+        // Step 4: RAG Integration (If Accepted)
+        // Step 4: RAG Integration (If Accepted)
+        let followUpQuestion = null;
+        if (verdict === "ACCEPTED") {
+            try {
+                const topic = await extractTopic(userCode);
+                const category = mapTopicToCategory(topic);
+                const dbQuestion = await getRelevantQuestion(category);
+
+                if (dbQuestion) {
+                    // DIRECT SERVE: No LLM Rewriting to prevent "hallucinated variations"
+                    followUpQuestion = `Good job! Here is a related interview question to think about:\n\n${dbQuestion}`;
+                } else {
+                    // Fallback if DB is empty for this category
+                    followUpQuestion = `Excellent work on the ${topic} implementation! Can you analyze the time complexity of your solution?`;
+                }
+            } catch (e) {
+                console.error("RAG fetch failed:", e);
+                followUpQuestion = "Great job! What is the Time and Space complexity of your solution?";
+            }
+        }
         return NextResponse.json({
             verdict,
-            reason: verdict === "ACCEPTED" ? "All test cases passed!" : firstFailReason,
-            cases_passed: passed,
-            total_cases: cases.length,
-            confidence: 1.0,
-            source // "SCRAPER" | "LLM_GENERATOR" | "FALLBACK"
+            passed,
+            total: cases.length,
+            reason: firstFailReason,
+            followUp: followUpQuestion
         });
 
     } catch (error: any) {

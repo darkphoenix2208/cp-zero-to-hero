@@ -15,8 +15,24 @@ bool isPalindrome(string s) {
 }
 `;
 
+// ... imports
+
+const LANGUAGES = [
+    { id: 'cpp', name: 'C++', monaco: 'cpp' },
+    { id: 'c', name: 'C', monaco: 'c' },
+    { id: 'python', name: 'Python 3', monaco: 'python' },
+    { id: 'java', name: 'Java', monaco: 'java' },
+    { id: 'javascript', name: 'JavaScript', monaco: 'javascript' },
+    { id: 'typescript', name: 'TypeScript', monaco: 'typescript' },
+    { id: 'go', name: 'Go', monaco: 'go' },
+    { id: 'rust', name: 'Rust', monaco: 'rust' },
+    { id: 'csharp', name: 'C#', monaco: 'csharp' },
+    { id: 'kotlin', name: 'Kotlin', monaco: 'kotlin' },
+];
+
 export default function InterviewClient() {
     const [code, setCode] = useState(SAMPLE_PROBLEM.trim());
+    const [language, setLanguage] = useState(LANGUAGES[0]);
     const [isActive, setIsActive] = useState(false);
 
     // Stats / Controls
@@ -56,46 +72,55 @@ export default function InterviewClient() {
         setCode(SAMPLE_PROBLEM.trim());
     };
 
+
+    const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selected = LANGUAGES.find(l => l.id === e.target.value) || LANGUAGES[0];
+        setLanguage(selected);
+        // Optional: Reset code template based on language? For now, keep simple.
+    };
+
     return (
         <div className="w-full h-screen bg-zinc-950 text-white font-sans flex flex-col relative overflow-hidden">
-            <Toaster position="top-center" theme="dark" />
+            {/* ... Toaster & Room ... */}
 
-            {/*
-               Interview Room "Portal"
-               Opens immediately when Processing (Submitting) OR Locked (Interruption)
-            */}
             <InterviewRoom
                 isOpen={isLocked || isProcessing}
                 question={question}
                 feedback={feedback}
                 isProcessing={isProcessing}
-                onValidate={(ans) => validateAnswer(code, ans)}
+                onValidate={(ans) => validateAnswer(code, ans, language.id)}
             />
 
             {/* Header */}
             <div className="border-b border-zinc-800 p-4 bg-zinc-900/50 backdrop-blur flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center shadow-lg shadow-red-900/50">
-                        <Mic className="text-white" size={20} />
-                    </div>
+                    {/* ... Logo ... */}
                     <div>
                         <h1 className="font-bold text-lg leading-none">The Mock Interviewer</h1>
-                        <p className="text-zinc-500 text-xs">AI-Powered Pressure Testing</p>
+                        <div className="flex items-center gap-2 mt-1">
+                            <p className="text-zinc-500 text-xs">AI-Powered Pressure Testing</p>
+                        </div>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-4">
+                    <select
+                        value={language.id}
+                        onChange={handleLanguageChange}
+                        className="bg-zinc-800 text-xs text-zinc-300 border border-zinc-700 rounded px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-red-500"
+                    >
+                        {LANGUAGES.map(lang => (
+                            <option key={lang.id} value={lang.id}>{lang.name}</option>
+                        ))}
+                    </select>
+                    {/* ... Buttons ... */}
                     {isActive ? (
                         <>
-                            <div className="hidden md:flex px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-xs font-bold uppercase tracking-wider animate-pulse items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-red-500" />
-                                Interview in Progress
-                            </div>
-
+                            {/* ... Status ... */}
                             <button
                                 onClick={() => {
                                     toast.info("Submitting...", { description: "The interviewer is reviewing your code." });
-                                    triggerInterruption(code, true);
+                                    triggerInterruption(code, true, { language: language.id });
                                 }}
                                 className="bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded font-bold text-xs flex items-center gap-2 shadow-[0_0_15px_rgba(22,163,74,0.4)] transition hover:scale-105"
                             >
@@ -103,7 +128,7 @@ export default function InterviewClient() {
                             </button>
 
                             <button
-                                onClick={() => triggerInterruption(code, true)}
+                                onClick={() => triggerInterruption(code, true, { language: language.id })}
                                 className="text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-400 px-3 py-1.5 rounded transition"
                             >
                                 <span className="hidden sm:inline">Debug: Force Question</span><span className="sm:hidden">Debug</span>
@@ -150,7 +175,8 @@ export default function InterviewClient() {
 
                     <Editor
                         height="100%"
-                        defaultLanguage="cpp"
+                        defaultLanguage={language.monaco}
+                        language={language.monaco}
                         value={code}
                         theme="vs-dark"
                         onChange={handleCodeChange}

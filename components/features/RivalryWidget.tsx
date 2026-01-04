@@ -9,8 +9,8 @@ import { useRivalData } from '@/hooks/useRivalData';
 import { RivalryGraph } from '@/components/features/RivalryGraph';
 import { ActivityFeed } from '@/components/features/ActivityFeed';
 
-export function RivalryWidget({ user }: { user?: CFUser | null }) {
-    const { rivals, activity, graphData, loading } = useRivalData(user || null);
+export function RivalryWidget({ user, initialRivals }: { user?: CFUser | null, initialRivals?: CFUser[] }) {
+    const { rivals, activity, graphData, loading } = useRivalData(user || null, initialRivals || []);
     const [tab, setTab] = useState<'versus' | 'activity' | 'graph'>('versus');
     const [newHandle, setNewHandle] = useState('');
     const [error, setError] = useState('');

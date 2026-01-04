@@ -42,9 +42,12 @@ export default function BlogHunterPage() {
     const [loading, setLoading] = useState(false);
     const [selectedTopic, setSelectedTopic] = useState("All");
 
-    const filteredResources = selectedTopic === "All"
-        ? ALL_RESOURCES
-        : ALL_RESOURCES.filter(r => r.topic === selectedTopic);
+    const filteredResources = ALL_RESOURCES.filter(r => {
+        const matchesTopic = selectedTopic === "All" || r.topic === selectedTopic;
+        const matchesQuery = r.title.toLowerCase().includes(query.toLowerCase()) ||
+            r.tags.some(t => t.toLowerCase().includes(query.toLowerCase()));
+        return matchesTopic && matchesQuery;
+    });
 
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -109,10 +112,12 @@ export default function BlogHunterPage() {
                         </button>
                     </form>
 
-                    {/* SEARCH RESULTS */}
+                    {/* SEARCH RESULTS (AI) */}
                     {results.length > 0 && (
                         <div className="mt-8 space-y-4 animate-in fade-in slide-in-from-bottom-4">
-                            <h3 className="text-zinc-400 font-bold uppercase text-sm tracking-widest mb-4">AI Search Results</h3>
+                            <h3 className="text-purple-400 font-bold uppercase text-sm tracking-widest mb-4 flex items-center gap-2">
+                                <Sparkles size={16} /> AI Curator Picks
+                            </h3>
                             {results.map((blog, i) => (
                                 <a
                                     key={i}
@@ -158,8 +163,8 @@ export default function BlogHunterPage() {
                                     key={t}
                                     onClick={() => setSelectedTopic(t)}
                                     className={`px-3 py-1.5 text-xs rounded-full border transition font-medium ${selectedTopic === t
-                                            ? "bg-purple-600/20 border-purple-500 text-purple-300"
-                                            : "bg-zinc-900 border-zinc-800 text-zinc-500 hover:border-zinc-700"
+                                        ? "bg-purple-600/20 border-purple-500 text-purple-300"
+                                        : "bg-zinc-900 border-zinc-800 text-zinc-500 hover:border-zinc-700"
                                         }`}
                                 >
                                     {t}

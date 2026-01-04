@@ -8,11 +8,27 @@ import { InterviewRoom } from "@/components/features/interview/InterviewRoom";
 import { toast } from "sonner";
 // import ReactMarkdown from 'react-markdown'; // Removed to avoid missing dependency
 
+// Languages
+// Languages
+const LANGUAGES = [
+    { id: 'cpp', name: 'C++', monaco: 'cpp', field: 'starterCodeCpp' },
+    { id: 'c', name: 'C', monaco: 'c', field: 'starterCodeC' },
+    { id: 'python', name: 'Python 3', monaco: 'python', field: 'starterCodePython' },
+    { id: 'java', name: 'Java', monaco: 'java', field: 'starterCodeJava' },
+    { id: 'javascript', name: 'JavaScript', monaco: 'javascript', field: 'starterCodeJavascript' },
+    { id: 'typescript', name: 'TypeScript', monaco: 'typescript', field: 'starterCodeJavascript' },
+    { id: 'go', name: 'Go', monaco: 'go', field: 'starterCodeGo' },
+    { id: 'rust', name: 'Rust', monaco: 'rust', field: 'starterCodeRust' },
+    { id: 'csharp', name: 'C#', monaco: 'csharp', field: 'starterCodeCSharp' },
+    { id: 'kotlin', name: 'Kotlin', monaco: 'kotlin', field: 'starterCodeKotlin' },
+];
+
 export default function InterviewPage() {
     // Problem State
     const [problem, setProblem] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [code, setCode] = useState("// Loading starter code...");
+    const [language, setLanguage] = useState(LANGUAGES[0]);
 
     // Interview State
     const { isLocked, question, feedback, isProcessing, triggerInterruption, validateAnswer, onCodeChange } = useMockInterviewer();
@@ -27,7 +43,7 @@ export default function InterviewPage() {
             if (data.error) throw new Error(data.error);
 
             setProblem(data);
-            setCode(data.starterCode || "// Write your solution here");
+            setCode(data.starterCodeCpp || "// Write your solution here");
             toast.success("New Problem Generated");
         } catch (e) {
             console.error(e);
@@ -53,7 +69,10 @@ export default function InterviewPage() {
     // Manual Trigger
     const handleManualSubmit = () => {
         // Allow submission even without voice
-        triggerInterruption(code, true, { testCases: problem?.testCases || [] });
+        triggerInterruption(code, true, {
+            testCases: problem?.testCases || [],
+            language: language.id
+        });
     };
 
     // Surgery State
@@ -69,6 +88,7 @@ export default function InterviewPage() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     code,
+                    language: language.id,
                     problemTitle: problem?.title || "Unknown",
                     problemDescription: problem?.description || ""
                 })
@@ -201,10 +221,14 @@ export default function InterviewPage() {
                                 {problem.examples?.map((ex: any, i: number) => (
                                     <div key={i} className="bg-zinc-900 rounded-lg p-3 border border-zinc-800 text-sm font-mono">
                                         <div className="mb-2">
-                                            <span className="text-zinc-500">Input:</span> <span className="text-white">{ex.input}</span>
+                                            <span className="text-zinc-500">Input:</span> <span className="text-white">
+                                                {typeof ex.input === 'object' ? JSON.stringify(ex.input) : ex.input}
+                                            </span>
                                         </div>
                                         <div>
-                                            <span className="text-zinc-500">Output:</span> <span className="text-green-400">{ex.output}</span>
+                                            <span className="text-zinc-500">Output:</span> <span className="text-green-400">
+                                                {typeof ex.output === 'object' ? JSON.stringify(ex.output) : ex.output}
+                                            </span>
                                         </div>
                                         {ex.explanation && (
                                             <div className="mt-2 text-zinc-500 italic text-xs border-t border-zinc-800 pt-2">
@@ -274,10 +298,31 @@ export default function InterviewPage() {
                     </div>
                 )}
 
+                {/* Header */}
+                <div className="p-4 border-b border-zinc-800 bg-zinc-900/50 flex justify-end items-center">
+                    <select
+                        value={language.id}
+                        onChange={(e) => {
+                            const newLang = LANGUAGES.find(l => l.id === e.target.value) || LANGUAGES[0];
+                            setLanguage(newLang);
+                            if (problem) {
+                                // @ts-ignore
+                                const newCode = problem[newLang.field] || "// Boilerplate not available for this language";
+                                setCode(newCode);
+                            }
+                        }}
+                        className="bg-zinc-800 text-xs text-zinc-300 border border-zinc-700 rounded px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-red-500 mr-4"
+                    >
+                        {LANGUAGES.map(lang => (
+                            <option key={lang.id} value={lang.id}>{lang.name}</option>
+                        ))}
+                    </select>
+                </div>
+
                 <Editor
                     height="100%"
-                    defaultLanguage="cpp"
-                    language="cpp"
+                    defaultLanguage={language.monaco}
+                    language={language.monaco}
                     theme="vs-dark"
                     value={code}
                     onChange={handleEditorChange}
@@ -308,7 +353,7 @@ export default function InterviewPage() {
             <InterviewRoom
                 isOpen={isLocked || !!question}
                 question={question}
-                onValidate={(ans) => validateAnswer(code, ans)}
+                onValidate={(ans) => validateAnswer(code, ans, language.id)}
                 feedback={feedback}
                 isProcessing={isProcessing}
             />

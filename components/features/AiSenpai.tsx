@@ -36,6 +36,14 @@ export function AiSenpai() {
         }
     }, [watchStatus, watchedVerdict]);
 
+    // Helper to safely render content that might be an object
+    const renderSafe = (content: any) => {
+        if (typeof content === 'object' && content !== null) {
+            return JSON.stringify(content, null, 2);
+        }
+        return content;
+    };
+
     // Smart Assist Logic (The Brain)
     const handleSmartAssist = async (verdict: string) => {
         if (!userCode.trim()) return;
@@ -115,6 +123,21 @@ export function AiSenpai() {
         }
     };
 
+    // TTS Helper
+    const speak = (text: string) => {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel(); // Stop previous
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.1;
+            utterance.pitch = 1.0;
+            // Try to find a good voice (optional, browser dependent)
+            const voices = window.speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v => v.name.includes('Google') || v.name.includes('English'));
+            if (preferredVoice) utterance.voice = preferredVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+    };
+
     // Internal Judge Submit
     const handleSubmit = async () => {
         if (!userCode.trim() || !problemName.trim()) {
@@ -150,6 +173,10 @@ export function AiSenpai() {
 
             if (verdict.verdict === 'ACCEPTED') {
                 toast.success("Accepted!", { id: toastId });
+                // If there's a follow-up question (RAG), speak it and show it
+                if (verdict.followUp) {
+                    speak(`Verdict Accepted. ${verdict.followUp}`);
+                }
                 setShowSuccessModal(true);
             } else {
                 toast.error(verdict.verdict, { id: toastId, description: verdict.reason });
@@ -282,26 +309,43 @@ export function AiSenpai() {
                     {/* Results Area */}
                     <AnimatePresence>
                         {verdictResult && (
-                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className={cn("rounded-2xl p-6 border flex flex-col md:flex-row items-center md:items-start gap-6 shadow-xl backdrop-blur-md", verdictResult.verdict === 'ACCEPTED' ? "bg-emerald-950/30 border-emerald-500/30" : "bg-red-950/30 border-red-500/30")}>
-                                <div className={cn("p-4 rounded-full border-4", verdictResult.verdict === 'ACCEPTED' ? "bg-emerald-500/20 border-emerald-500/30 text-emerald-400" : "bg-red-500/20 border-red-500/30 text-red-400")}>
-                                    {verdictResult.verdict === 'ACCEPTED' ? <CheckCircle size={32} /> : <XCircle size={32} />}
-                                </div>
-                                <div className="text-center md:text-left flex-1">
-                                    <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
-                                        <h3 className={cn("text-2xl font-black tracking-tight", verdictResult.verdict === 'ACCEPTED' ? "text-white" : "text-white")}>{verdictResult.verdict}</h3>
-                                        {verdictResult.source && <span className="text-[10px] font-bold bg-black/40 px-2 py-1 rounded border border-white/10 text-zinc-400">{verdictResult.source}</span>}
+                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className={cn("rounded-2xl p-6 border flex flex-col items-stretch gap-6 shadow-xl backdrop-blur-md", verdictResult.verdict === 'ACCEPTED' ? "bg-emerald-950/30 border-emerald-500/30" : "bg-red-950/30 border-red-500/30")}>
+                                <div className="flex items-center md:items-start gap-6">
+                                    <div className={cn("p-4 rounded-full border-4", verdictResult.verdict === 'ACCEPTED' ? "bg-emerald-500/20 border-emerald-500/30 text-emerald-400" : "bg-red-500/20 border-red-500/30 text-red-400")}>
+                                        {verdictResult.verdict === 'ACCEPTED' ? <CheckCircle size={32} /> : <XCircle size={32} />}
                                     </div>
-                                    <p className={cn("font-mono text-sm mb-4", verdictResult.verdict === 'ACCEPTED' ? "text-emerald-200/70" : "text-red-200/70")}>{verdictResult.reason}</p>
-
-                                    {verdictResult.cases_passed !== undefined && (
-                                        <div className="inline-flex items-center gap-2 bg-black/20 p-2 rounded-lg border border-white/5">
-                                            <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">Tests Passed</span>
-                                            <span className={cn("text-sm font-mono font-bold", verdictResult.verdict === 'ACCEPTED' ? "text-emerald-400" : "text-red-400")}>
-                                                {verdictResult.cases_passed}/{verdictResult.total_cases}
-                                            </span>
+                                    <div className="text-center md:text-left flex-1">
+                                        <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
+                                            <h3 className={cn("text-2xl font-black tracking-tight", verdictResult.verdict === 'ACCEPTED' ? "text-white" : "text-white")}>{verdictResult.verdict}</h3>
+                                            {verdictResult.source && <span className="text-[10px] font-bold bg-black/40 px-2 py-1 rounded border border-white/10 text-zinc-400">{verdictResult.source}</span>}
                                         </div>
-                                    )}
+                                        <p className={cn("font-mono text-sm mb-4", verdictResult.verdict === 'ACCEPTED' ? "text-emerald-200/70" : "text-red-200/70")}>{verdictResult.reason}</p>
+
+                                        {verdictResult.cases_passed !== undefined && (
+                                            <div className="inline-flex items-center gap-2 bg-black/20 p-2 rounded-lg border border-white/5">
+                                                <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">Tests Passed</span>
+                                                <span className={cn("text-sm font-mono font-bold", verdictResult.verdict === 'ACCEPTED' ? "text-emerald-400" : "text-red-400")}>
+                                                    {verdictResult.cases_passed}/{verdictResult.total_cases}
+                                                </span>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
+
+                                {/* Follow-up Question (RAG) */}
+                                {verdictResult.followUp && (
+                                    <div className="mt-2 bg-indigo-900/20 border border-indigo-500/30 p-4 rounded-xl flex items-start gap-4">
+                                        <div className="p-2 bg-indigo-500/20 rounded-lg text-indigo-300">
+                                            <Bot size={24} />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-indigo-200 font-bold text-sm uppercase tracking-wider mb-1">Interviewer Follow-up</h4>
+                                            <p className="text-white text-lg font-medium leading-relaxed">
+                                                "{verdictResult.followUp}"
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -335,7 +379,7 @@ export function AiSenpai() {
                                     ) : (
                                         <div className="space-y-4">
                                             <div className="bg-amber-500/5 border border-amber-500/20 p-4 rounded-xl">
-                                                <p className="text-amber-200/90 italic text-lg leading-relaxed">"{assistResult.hint}"</p>
+                                                <p className="text-amber-200/90 italic text-lg leading-relaxed">"{renderSafe(assistResult.hint)}"</p>
                                             </div>
                                             {assistResult.potential_bug_location && (
                                                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 bg-zinc-950 p-2 rounded-lg border border-zinc-800 inline-block">
