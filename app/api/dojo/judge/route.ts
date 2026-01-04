@@ -47,7 +47,7 @@ async function getRelevantQuestion(category: string): Promise<string | null> {
             return null;
         }
 
-        const { data, error } = await supabase
+        const { data, error }: { data: { question_text: string }[] | null; error: any } = await supabase
             .from('interview_questions')
             .select('question_text')
             .eq('category', category)
