@@ -11,48 +11,31 @@ import { DashboardTour } from '@/components/onboarding/DashboardTour';
 
 // Define Prop Type based on Prisma User + Stats
 interface DashboardClientProps {
-    user: any; // Using any temporarily to avoid Prisma type conflicts in client, but structure is known
+    user: any;
+    initialSubmissions: any[];
+    recommendation: any;
+    initialRivals: any[]; // New Prop
 }
 
-export function DashboardClient({ user }: DashboardClientProps) {
-    const [submissions, setSubmissions] = useState<any[]>([]);
+export function DashboardClient({ user, initialSubmissions, recommendation: initialRec, initialRivals }: DashboardClientProps) {
+    const [submissions, setSubmissions] = useState<any[]>(initialSubmissions);
+    // ... stats logic ...
     const [stats, setStats] = useState({
         streak: user.stats?.currentStreak || 0,
         totalSolved: user.stats?.totalSolved || 0,
         rank: user.rank || 'Newbie'
     });
-    const [recommendation, setRecommendation] = useState<any>(null);
+    const [recommendation, setRecommendation] = useState<any>(initialRec);
 
-    // Initial Data Fetch
+    // Initial Stats Processing (Hydration)
     useEffect(() => {
-        const handle = user.codeforcesHandle;
-        if (!handle) return; // Should be handled by server redirect, but safe guard
-
-        const fetchData = async () => {
-            try {
-                // 1. Get Submissions
-                const subs = await getSubmissions(handle);
-                setSubmissions(subs);
-
-                // 2. Calc Stats (Client side calc for freshness, then sync)
-                processStats(handle, subs, user.rating || 0);
-
-                // 3. Recommendation
-                const currentRating = user.rating || 800;
-                const targetRating = Math.max(800, Math.ceil((currentRating + 100) / 100) * 100);
-                const probs = await getProblemsByRating(targetRating);
-                if (probs.length > 0) setRecommendation(probs[0]);
-
-            } catch (e) {
-                console.error("Dashboard fetch failed", e);
-            }
-        };
-
-        fetchData();
-    }, [user.codeforcesHandle]);
+        if (user.codeforcesHandle && initialSubmissions.length > 0) {
+            processStats(user.codeforcesHandle, initialSubmissions, user.rating || 0);
+        }
+    }, []);
 
     const processStats = (handle: string, subs: any[], rating: number) => {
-        // 1. Calculate Solved
+        // ... stats processing ...
         const solvedSet = new Set();
         const acSubs = subs.filter((s: any) => s.verdict === 'OK');
 
@@ -100,7 +83,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
         syncUserStats(handle, {
             currentStreak: streak,
             totalSolved: solvedSet.size,
-            maxRating: 0, // We rely on CF API update elsewhere or keep 0 if not fetched fresh
+            maxRating: 0,
             lastActive: new Date()
         });
     };
@@ -321,7 +304,10 @@ export function DashboardClient({ user }: DashboardClientProps) {
                         </div>
                         <div className="p-2">
                             {/* We adapt RivalryWidget to use proper user object or handle if needed. Assuming it uses props.user.handle */}
-                            <RivalryWidget user={{ ...user, handle: user.codeforcesHandle }} />
+                            <RivalryWidget
+                                user={{ ...user, handle: user.codeforcesHandle }}
+                                initialRivals={initialRivals}
+                            />
                         </div>
                     </div>
 

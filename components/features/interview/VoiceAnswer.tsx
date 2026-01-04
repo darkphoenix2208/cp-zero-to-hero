@@ -4,7 +4,9 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 interface VoiceAnswerProps {
-    transcript: string;
+    value: string;
+    onChange: (val: string) => void;
+    transcript?: string; // Optional (legacy/internal use if needed, but we rely on value)
     isListening: boolean;
     startListening: () => void;
     stopListening: () => void;
@@ -12,7 +14,7 @@ interface VoiceAnswerProps {
     isProcessing: boolean;
 }
 
-export function VoiceAnswer({ transcript, isListening, startListening, stopListening, onSubmit, isProcessing }: VoiceAnswerProps) {
+export function VoiceAnswer({ value, onChange, isListening, startListening, stopListening, onSubmit, isProcessing }: VoiceAnswerProps) {
 
     return (
         <div className="flex flex-col items-center gap-4 w-full">
@@ -29,29 +31,32 @@ export function VoiceAnswer({ transcript, isListening, startListening, stopListe
                     onClick={isListening ? stopListening : startListening}
                     disabled={isProcessing}
                     className={`relative z-10 w-16 h-16 rounded-full flex items-center justify-center transition ${isListening
-                            ? 'bg-red-500 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
-                            : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                        ? 'bg-red-500 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
+                        : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
                         }`}
                 >
                     {isListening ? <MicOff size={24} /> : <Mic size={24} />}
                 </button>
             </div>
 
-            <div className="w-full max-w-lg min-h-[100px] bg-zinc-950/50 border border-zinc-800 rounded-lg p-4 text-center">
-                {transcript ? (
-                    <p className="text-zinc-200">{transcript}</p>
-                ) : (
-                    <p className="text-zinc-600 italic">Tap mic and speak your answer...</p>
-                )}
+            <div className="w-full max-w-lg relative group">
+                <textarea
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    disabled={isProcessing}
+                    placeholder="Speak or type your answer here..."
+                    className="w-full min-h-[120px] bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 text-zinc-200 focus:outline-none focus:ring-2 focus:ring-red-500/50 resize-none transition"
+                />
+                {isListening && <div className="absolute top-2 right-2 flex items-center gap-2 text-xs text-red-500 animate-pulse font-mono uppercase tracking-wider">Listening...</div>}
             </div>
 
-            {transcript && !isListening && (
+            {value.trim().length > 0 && (
                 <button
                     onClick={onSubmit}
                     disabled={isProcessing}
-                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full font-bold transition"
+                    className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white px-8 py-3 rounded-full font-bold transition shadow-lg shadow-red-900/40 hover:scale-105"
                 >
-                    {isProcessing ? <Loader2 className="animate-spin" size={16} /> : "Submit Answer"}
+                    {isProcessing ? <Loader2 className="animate-spin" size={18} /> : <span>Submit Answer</span>}
                 </button>
             )}
         </div>

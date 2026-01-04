@@ -1,0 +1,632 @@
+[
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Easy",
+        "question_text": "Contains Duplicate: Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Easy",
+        "question_text": "Valid Anagram: Given two strings s and t, return true if t is an anagram of s, and false otherwise."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Easy",
+        "question_text": "Two Sum: Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Medium",
+        "question_text": "Group Anagrams: Given an array of strings strs, group the anagrams together. You can return the answer in any order."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Medium",
+        "question_text": "Top K Frequent Elements: Given an integer array nums and an integer k, return the k most frequent elements."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Medium",
+        "question_text": "Product of Array Except Self: Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i]."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Medium",
+        "question_text": "Valid Sudoku: Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Medium",
+        "question_text": "Longest Consecutive Sequence: Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence. Must be O(n)."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Easy",
+        "question_text": "Majority Element: Given an array nums of size n, return the majority element (appears more than n/2 times)."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Easy",
+        "question_text": "Replace Elements with Greatest Element on Right Side: Replace every element in that array with the greatest element among the elements to its right, and replace the last element with -1."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Easy",
+        "question_text": "Is Subsequence: Given two strings s and t, return true if s is a subsequence of t."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Easy",
+        "question_text": "Length of Last Word: Given a string s consisting of words and spaces, return the length of the last word in the string."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Medium",
+        "question_text": "Encode and Decode TinyURL: Design a class to encode a URL and decode a tiny URL."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Medium",
+        "question_text": "Brick Wall: There is a rectangular brick wall in front of you with n rows of bricks... Find the minimum number of crossed bricks."
+    },
+    {
+        "category": "Arrays & Hashing",
+        "difficulty": "Hard",
+        "question_text": "First Missing Positive: Given an unsorted integer array nums, return the smallest missing positive integer. Must be O(n) time and O(1) space."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Easy",
+        "question_text": "Valid Palindrome: A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Medium",
+        "question_text": "3Sum: Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Medium",
+        "question_text": "Container With Most Water: Find two lines that together with the x-axis form a container, such that the container contains the most water."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Hard",
+        "question_text": "Trapping Rain Water: Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Medium",
+        "question_text": "Two Sum II - Input Array Sorted: Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Medium",
+        "question_text": "Boats to Save People: You are given an array people where people[i] is the weight of the ith person... Return the minimum number of boats to carry every given person."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Easy",
+        "question_text": "Move Zeroes: Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements."
+    },
+    {
+        "category": "Two Pointers",
+        "difficulty": "Medium",
+        "question_text": "Rotate Array: Given an integer array nums, rotate the array to the right by k steps, where k is non-negative."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Easy",
+        "question_text": "Best Time to Buy and Sell Stock: Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Medium",
+        "question_text": "Longest Substring Without Repeating Characters: Given a string s, find the length of the longest substring without repeating characters."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Medium",
+        "question_text": "Longest Repeating Character Replacement: You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Medium",
+        "question_text": "Permutation in String: Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Hard",
+        "question_text": "Minimum Window Substring: Given two strings s and t, return the minimum window substring of s such that every character in t (including duplicates) is included in the window."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Hard",
+        "question_text": "Sliding Window Maximum: You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. Return the max sliding window."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Medium",
+        "question_text": "Frequency of the Most Frequent Element: The frequency of an element is the number of times it occurs in an array... Return the maximum possible frequency of an element after performing at most k operations."
+    },
+    {
+        "category": "Sliding Window",
+        "difficulty": "Medium",
+        "question_text": "Minimum Size Subarray Sum: Return the minimal length of a subarray whose sum is greater than or equal to target."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Easy",
+        "question_text": "Valid Parentheses: Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Medium",
+        "question_text": "Min Stack: Design a stack that supports push, pop, top, and retrieving the minimum element in constant time."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Medium",
+        "question_text": "Evaluate Reverse Polish Notation: Evaluate the value of an arithmetic expression in Reverse Polish Notation."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Medium",
+        "question_text": "Generate Parentheses: Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Medium",
+        "question_text": "Daily Temperatures: Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Medium",
+        "question_text": "Car Fleet: There are n cars going to the same destination along a one-lane road... Return the number of car fleets that will arrive at the destination."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Hard",
+        "question_text": "Largest Rectangle in Histogram: Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Medium",
+        "question_text": "Asteroid Collision: We are given an array asteroids of integers representing asteroids in a row. Return the state of the asteroids after all collisions."
+    },
+    {
+        "category": "Stack",
+        "difficulty": "Medium",
+        "question_text": "Online Stock Span: Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day."
+    },
+    {
+        "category": "Binary Search",
+        "difficulty": "Easy",
+        "question_text": "Binary Search: Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums."
+    },
+    {
+        "category": "Binary Search",
+        "difficulty": "Medium",
+        "question_text": "Search a 2D Matrix: Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the property that each row is sorted in ascending order."
+    },
+    {
+        "category": "Binary Search",
+        "difficulty": "Medium",
+        "question_text": "Koko Eating Bananas: Return the minimum integer k such that she can eat all the bananas within h hours."
+    },
+    {
+        "category": "Binary Search",
+        "difficulty": "Medium",
+        "question_text": "Find Minimum in Rotated Sorted Array: Given the sorted rotated array nums of unique elements, return the minimum element of this array."
+    },
+    {
+        "category": "Binary Search",
+        "difficulty": "Medium",
+        "question_text": "Search in Rotated Sorted Array: Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k. Return the index of target if it is in nums."
+    },
+    {
+        "category": "Binary Search",
+        "difficulty": "Medium",
+        "question_text": "Time Based Key-Value Store: Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key's value at a certain timestamp."
+    },
+    {
+        "category": "Binary Search",
+        "difficulty": "Hard",
+        "question_text": "Median of Two Sorted Arrays: Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Easy",
+        "question_text": "Reverse Linked List: Given the head of a singly linked list, reverse the list, and return the reversed list."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Easy",
+        "question_text": "Merge Two Sorted Lists: You are given the heads of two sorted linked lists list1 and list2. Merge the two lists in a one sorted list."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Easy",
+        "question_text": "Linked List Cycle: Given head, the head of a linked list, determine if the linked list has a cycle in it."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Medium",
+        "question_text": "Reorder List: You are given the head of a singly linked-list. The list can be represented as: L0 → L1 → … → Ln - 1 → Ln. Reorder the list to be on the following form: L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …"
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Medium",
+        "question_text": "Remove Nth Node From End of List: Given the head of a linked list, remove the nth node from the end of the list and return its head."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Medium",
+        "question_text": "Copy List with Random Pointer: Construct a deep copy of the list. The deep copy should consist of exactly n brand new nodes."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Medium",
+        "question_text": "Add Two Numbers: You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order... Add the two numbers and return the sum as a linked list."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Medium",
+        "question_text": "LRU Cache: Design a data structure that follows the constraints of a Least Recently Used (LRU) cache."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Hard",
+        "question_text": "Merge k Sorted Lists: You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it."
+    },
+    {
+        "category": "Linked List",
+        "difficulty": "Hard",
+        "question_text": "Reverse Nodes in k-Group: Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Easy",
+        "question_text": "Invert Binary Tree: Given the root of a binary tree, invert the tree, and return its root."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Easy",
+        "question_text": "Maximum Depth of Binary Tree: Given the root of a binary tree, return its maximum depth."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Easy",
+        "question_text": "Diameter of Binary Tree: Given the root of a binary tree, return the length of the diameter of the tree."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Easy",
+        "question_text": "Balanced Binary Tree: Given a binary tree, determine if it is height-balanced."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Easy",
+        "question_text": "Same Tree: Given the roots of two binary trees p and q, write a function to check if they are the same or not."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Easy",
+        "question_text": "Subtree of Another Tree: Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Medium",
+        "question_text": "Lowest Common Ancestor of a Binary Search Tree: Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Medium",
+        "question_text": "Binary Tree Level Order Traversal: Given the root of a binary tree, return the level order traversal of its nodes' values."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Medium",
+        "question_text": "Binary Tree Right Side View: Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Medium",
+        "question_text": "Count Good Nodes in Binary Tree: Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Medium",
+        "question_text": "Validate Binary Search Tree: Given the root of a binary tree, determine if it is a valid binary search tree (BST)."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Medium",
+        "question_text": "Kth Smallest Element in a BST: Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Medium",
+        "question_text": "Construct Binary Tree from Preorder and Inorder Traversal: Given two integer arrays preorder and inorder... construct and return the binary tree."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Hard",
+        "question_text": "Binary Tree Maximum Path Sum: Return the maximum path sum of any non-empty path."
+    },
+    {
+        "category": "Trees",
+        "difficulty": "Hard",
+        "question_text": "Serialize and Deserialize Binary Tree: Design an algorithm to serialize and deserialize a binary tree."
+    },
+    {
+        "category": "Heap / Priority Queue",
+        "difficulty": "Easy",
+        "question_text": "Kth Largest Element in a Stream: Design a class to find the kth largest element in a stream."
+    },
+    {
+        "category": "Heap / Priority Queue",
+        "difficulty": "Medium",
+        "question_text": "Last Stone Weight: You are given an array of integers stones... Return the weight of the last remaining stone. If there are no stones left, return 0."
+    },
+    {
+        "category": "Heap / Priority Queue",
+        "difficulty": "Medium",
+        "question_text": "K Closest Points to Origin: You are given an array of points where each point = [xi, yi] represents a point on the X-Y plane and an integer k. Return the k closest points to the origin (0, 0)."
+    },
+    {
+        "category": "Heap / Priority Queue",
+        "difficulty": "Medium",
+        "question_text": "Kth Largest Element in an Array: Given an integer array nums and an integer k, return the kth largest element in the array."
+    },
+    {
+        "category": "Heap / Priority Queue",
+        "difficulty": "Medium",
+        "question_text": "Task Scheduler: Given a characters array tasks... Return the least number of units of times that the CPU will take to finish all the given tasks."
+    },
+    {
+        "category": "Heap / Priority Queue",
+        "difficulty": "Medium",
+        "question_text": "Design Twitter: Design a simplified version of Twitter where users can post tweets, follow/unfollow another user and is able to see the 10 most recent tweets in the user's news feed."
+    },
+    {
+        "category": "Heap / Priority Queue",
+        "difficulty": "Hard",
+        "question_text": "Find Median from Data Stream: The median is the middle value in an ordered integer list. Implement the MedianFinder class."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "question_text": "Subsets: Given an integer array nums of unique elements, return all possible subsets (the power set)."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "question_text": "Combination Sum: Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "question_text": "Permutations: Given an array nums of distinct integers, return all the possible permutations."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "question_text": "Subsets II: Given an integer array nums that may contain duplicates, return all possible subsets (the power set)."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "question_text": "Combination Sum II: Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "question_text": "Word Search: Given an m x n grid of characters board and a string word, return true if word exists in the grid."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Medium",
+        "question_text": "Palindrome Partitioning: Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s."
+    },
+    {
+        "category": "Backtracking",
+        "difficulty": "Hard",
+        "question_text": "N-Queens: The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Number of Islands: Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Max Area of Island: You are given an m x n binary matrix grid. An island is a group of 1s (representing land) connected 4-directionally... Return the maximum area of an island."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Clone Graph: Given a reference of a node in a connected undirected graph. Return a deep copy (clone) of the graph."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Islands and Treasure (Walls and Gates): You are given an m x n 2D grid initialized with these three possible values... Fill each empty room with the distance to its nearest gate."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Rotting Oranges: Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Pacific Atlantic Water Flow: Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Surrounded Regions: Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Course Schedule: There are a total of numCourses courses... Return true if you can finish all courses."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Course Schedule II: Return the ordering of courses you should take to finish all courses."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Graph Valid Tree: Given n nodes labeled from 0 to n - 1 and a list of undirected edges... write a function to check whether these edges make up a valid tree."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Number of Connected Components in an Undirected Graph: You have a graph of n nodes. You are given an integer n and an array edges... Return the number of connected components in the graph."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Medium",
+        "question_text": "Redundant Connection: Return an edge that can be removed so that the resulting graph is a tree of n nodes."
+    },
+    {
+        "category": "Graphs",
+        "difficulty": "Hard",
+        "question_text": "Word Ladder: A transformation sequence from word beginWord to word endWord using a dictionary wordList... Return the number of words in the shortest transformation sequence."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Easy",
+        "question_text": "Climbing Stairs: You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?"
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Easy",
+        "question_text": "Min Cost Climbing Stairs: Return the minimum cost to reach the top of the floor."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "House Robber: You are a professional robber planning to rob houses along a street... Return the maximum amount of money you can rob tonight without alerting the police."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "House Robber II: All houses at this place are arranged in a circle."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Longest Palindromic Substring: Given a string s, return the longest palindromic substring in s."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Palindromic Substrings: Given a string s, return the number of palindromic substrings in it."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Decode Ways: A message containing letters from A-Z can be encoded into numbers using the following mapping... Given a string s containing only digits, return the number of ways to decode it."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Coin Change: Return the fewest number of coins that you need to make up that amount."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Maximum Product Subarray: Given an integer array nums, find a subarray that has the largest product, and return the product."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Word Break: Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Longest Increasing Subsequence: Given an integer array nums, return the length of the longest strictly increasing subsequence."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Partition Equal Subset Sum: Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Unique Paths: There is a robot on an m x n grid... Return the number of possible unique paths that the robot can take to reach the bottom-right corner."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Longest Common Subsequence: Given two strings text1 and text2, return the length of their longest common subsequence."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Best Time to Buy and Sell Stock with Cooldown: Find the maximum profit you can achieve given a cooldown period."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Medium",
+        "question_text": "Interleaving String: Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Hard",
+        "question_text": "Edit Distance: Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2."
+    },
+    {
+        "category": "Dynamic Programming",
+        "difficulty": "Hard",
+        "question_text": "Burst Balloons: You are given n balloons, indexed from 0 to n - 1... Return the maximum coins you can collect by bursting the balloons wisely."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Maximum Subarray: Given an integer array nums, find the subarray which has the largest sum and return its sum."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Jump Game: You are given an integer array nums... Return true if you can reach the last index."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Jump Game II: Return the minimum number of jumps to reach the last index."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Gas Station: Return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Hand of Straights: Given an integer array hand and an integer groupSize... return true if she can rearrange the cards, or false otherwise."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Merge Triplets to Form Target Triplet: Return true if it is possible to obtain the target triplet [x, y, z] as an element of triplets, or false otherwise."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Partition Labels: You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part."
+    },
+    {
+        "category": "Greedy",
+        "difficulty": "Medium",
+        "question_text": "Valid Parenthesis String: Given a string s containing only '(', ')', and '*', return true if s is valid."
+    }
+]
