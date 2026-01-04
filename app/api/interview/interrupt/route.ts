@@ -86,6 +86,11 @@ async function extractTopic(code: string): Promise<string> {
 
 async function getRelevantQuestions(category: string, ignoreIds: number[] = []) {
     try {
+        if (!supabase) {
+            console.warn('Supabase not configured, skipping RAG question fetch');
+            return [];
+        }
+
         let query = supabase
             .from('interview_questions')
             .select('id, question_text')
