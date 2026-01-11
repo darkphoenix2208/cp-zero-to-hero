@@ -59,7 +59,7 @@ const worker = new Worker(QUEUE_NAME, async (job) => {
 
     return output;
 
-}, { connection });
+}, { connection: connection as any });
 
 worker.on('completed', job => {
     console.log(`✅ Job ${job.id} has completed!`);
