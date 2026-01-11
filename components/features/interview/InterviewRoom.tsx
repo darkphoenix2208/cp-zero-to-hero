@@ -104,7 +104,7 @@ export function InterviewRoom({ isOpen, question, onValidate, feedback, isProces
         >
             {/* Ambient Background */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(220,38,38,0.1),_rgba(9,9,11,1))] pointer-events-none" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150 mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 opacity-10 brightness-100 contrast-150 mix-blend-overlay pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }} />
 
             {/* CONTENT CONTAINER */}
             <div className="relative z-10 w-full max-w-6xl h-full flex flex-col p-6 items-center justify-center">

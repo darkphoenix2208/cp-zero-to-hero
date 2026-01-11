@@ -1,0 +1,35 @@
+{
+  "node": {
+    "606a1b2146dda9ec138e7f964737f3ff120d956742": {
+      "workers": {
+        "app/roadmap/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/roadmap/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getProblemsByRating",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/roadmap/page": "action-browser"
+      },
+      "exportedName": "getProblemsByRating",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40c7a5b2b47eff747b7f0d0df111434c64bc8e99f3": {
+      "workers": {
+        "app/roadmap/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/roadmap/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getSubmissions",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/roadmap/page": "action-browser"
+      },
+      "exportedName": "getSubmissions",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    }
+  },
+  "edge": {}
+}

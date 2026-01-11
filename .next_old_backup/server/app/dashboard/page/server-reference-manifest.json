@@ -1,0 +1,125 @@
+{
+  "node": {
+    "40a4ab9169a8f1d5862fbe4ee95ab1a152e43f0d1f": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "getSubmissions",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getSubmissions",
+      "filename": "app/actions.ts"
+    },
+    "6083d5261363bece42f745e6966770544e2ecd1620": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "syncUserStats",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "syncUserStats",
+      "filename": "app/actions.ts"
+    },
+    "600dae6907ce0c28fd30a22f2014c80abe40d39d6c": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "getProblemsByRating",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getProblemsByRating",
+      "filename": "app/actions.ts"
+    },
+    "60185536f509322c4483aad086a70650cffd790968": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "addPinnedRival",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "addPinnedRival",
+      "filename": "app/actions.ts"
+    },
+    "60fcad8d466ed2495f2d9dfa7433e201c209c4d50a": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "removePinnedRival",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "removePinnedRival",
+      "filename": "app/actions.ts"
+    },
+    "40885633fc55cd99242741741cac4804d70dfaf005": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "getRivals",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getRivals",
+      "filename": "app/actions.ts"
+    },
+    "405dab93dc5a19cc2dac56437c6eb95f231da168b5": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "getRivalActivity",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getRivalActivity",
+      "filename": "app/actions.ts"
+    },
+    "40a0f0d74b3103a71a74a3a2899581f456142b12b4": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": 59276,
+          "async": false,
+          "exportedName": "getRivalHistory",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getRivalHistory",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

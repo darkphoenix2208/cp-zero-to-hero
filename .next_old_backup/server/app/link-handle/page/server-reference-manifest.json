@@ -1,0 +1,35 @@
+{
+  "node": {
+    "406a6002b2985acfc734ce74c1e0b314126be47ce1": {
+      "workers": {
+        "app/link-handle/page": {
+          "moduleId": 12641,
+          "async": false,
+          "exportedName": "verifySubmissionAuth",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/link-handle/page": "action-browser"
+      },
+      "exportedName": "verifySubmissionAuth",
+      "filename": "app/actions.ts"
+    },
+    "409b98b21bb470a8da1c21bbe74107c4dfcb972a31": {
+      "workers": {
+        "app/link-handle/page": {
+          "moduleId": 12641,
+          "async": false,
+          "exportedName": "linkUserHandle",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/link-handle/page": "action-browser"
+      },
+      "exportedName": "linkUserHandle",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

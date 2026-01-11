@@ -36,6 +36,11 @@ CodeForge turns your journey from "Newbie" to "Grandmaster" into an RPG. Track y
 *   **Aggregator:** See upcoming rounds from Codeforces, LeetCode, AtCoder, and CodeChef.
 *   **Virtual Participation:** "Time Travel" to past contests and simulate them live.
 
+### 7. The Neural Coach (New) 🧠
+*   **Semantic Search:** Search for problems using natural language (e.g., "DP problems about grid paths").
+*   **Omni-Platform:** Access a unified database of Codeforces, AtCoder, CSES, and CodeChef problems.
+*   **Win Prediction:** AI estimates your probability of solving a problem based on your current rating.
+
 ---
 
 ## 🛠️ Tech Stack

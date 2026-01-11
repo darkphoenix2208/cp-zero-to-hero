@@ -27,7 +27,7 @@ const FlashbackNode = ({ card, onClick }: { card: any, onClick: () => void }) =>
         >
             {/* Background Noise/Rust if Decayed */}
             {isDecayed && (
-                <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
+                <div className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none" style={{ backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)' }} />
             )}
 
             {/* Status Indicator */}
@@ -221,7 +221,7 @@ int main() {
     return (
         <div className="min-h-screen bg-black text-white font-sans overflow-hidden relative">
             {/* Starry Background */}
-            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 pointer-events-none" />
+            <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'url(/bg-grid.svg)' }} />
 
             <div className="relative z-10 max-w-7xl mx-auto p-8 h-screen flex flex-col">
                 {/* Header */}

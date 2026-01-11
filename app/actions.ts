@@ -133,7 +133,7 @@ export async function getProblemsByRating(rating: number, tag: string = "") {
             ? `${API_BASE}/problemset.problems?tags=${tag}`
             : `${API_BASE}/problemset.problems`;
 
-        const res = await fetch(url, { next: { revalidate: 3600 } });
+        const res = await fetch(url, { cache: 'no-store' });
         const data = await res.json();
 
         if (data.status !== "OK") return [];
@@ -235,13 +235,28 @@ export async function removePinnedRival(handle: string, rivalHandle: string) {
     }
 }
 
+export async function resetPinnedRivals(handle: string) {
+    const user = await prisma.user.findUnique({ where: { codeforcesHandle: handle } });
+    if (!user) return { error: "User not found" };
+
+    try {
+        await prisma.pinnedRival.deleteMany({
+            where: { userId: user.id }
+        });
+        return { success: true };
+    } catch (e) {
+        console.error("Failed to reset rivals", e);
+        return { error: "Failed to reset rivals" };
+    }
+}
+
 export async function searchProblems(query: string) {
     try {
         if (query.length < 2) return [];
 
         // Fetch user permissions/problemset (using public API for now)
         // We'll trust the problemset.problems endpoint to be cached by Next.js
-        const res = await fetch(`${API_BASE}/problemset.problems`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${API_BASE}/problemset.problems`, { cache: 'no-store' });
         const data = await res.json();
         if (data.status !== "OK") return [];
 
@@ -271,7 +286,7 @@ export async function searchProblems(query: string) {
 // Helper to getting tags dynamically since DB persistence is tricky in dev env
 export async function getProblemTags(problemId: string) {
     try {
-        const res = await fetch(`${API_BASE}/problemset.problems`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${API_BASE}/problemset.problems`, { cache: 'no-store' });
         const data = await res.json();
         if (data.status !== "OK") return [];
 
@@ -678,4 +693,62 @@ export async function generateMashup(handle: string, minRating: number = 800, ma
         console.error("Mashup gen failed", e);
         return { success: false, error: "Failed to generate mashup" };
     }
+}
+
+// -----------------------------------------------------------------------------
+// 🔄 Offline-First Sync
+// -----------------------------------------------------------------------------
+
+export async function syncAttempts(localAttempts: any[]) {
+    const session = await auth();
+    if (!session?.user?.id) return { error: "Unauthorized" };
+    const userId = session.user.id;
+
+    // 1. Fetch Cloud State
+    const existing = await prisma.problemAttempt.findMany({
+        where: { userId }
+    });
+    const existingMap = new Map(existing.map(e => [e.problemLink, e]));
+
+    // 2. Identify New Records (Local -> Cloud)
+    // Strategy: Only upload if Cloud doesn't have it. "Prefer Cloud" for conflicts.
+    const toCreate = [];
+
+    for (const local of localAttempts) {
+        if (!existingMap.has(local.problem_link)) {
+            toCreate.push({
+                userId,
+                problemLink: local.problem_link,
+                verdict: local.verdict,
+                difficulty: local.difficulty || 0,
+                createdAt: new Date(local.date),
+            });
+        }
+    }
+
+    // 3. Bulk Insert
+    if (toCreate.length > 0) {
+        await prisma.problemAttempt.createMany({
+            data: toCreate,
+            skipDuplicates: true // Safety
+        });
+    }
+
+    // 4. Return Unified Cloud State (Cloud is Truth)
+    const finalState = await prisma.problemAttempt.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' }
+    });
+
+    return { success: true, attempts: finalState };
+}
+
+export async function getAttempts() {
+    const session = await auth();
+    if (!session?.user?.id) return [];
+
+    return await prisma.problemAttempt.findMany({
+        where: { userId: session.user.id },
+        orderBy: { createdAt: 'desc' }
+    });
 }

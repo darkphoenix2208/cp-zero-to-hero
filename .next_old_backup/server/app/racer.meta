@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/racer/layout,_N_T_/racer/page,_N_T_/racer"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/racer/__PAGE__",
+    "/racer",
+    "/_index",
+    "/_head"
+  ]
+}

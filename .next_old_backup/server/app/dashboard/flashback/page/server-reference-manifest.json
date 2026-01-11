@@ -1,0 +1,50 @@
+{
+  "node": {
+    "402e8909c6a23a63ee190d05dfc79cbb808a0a224e": {
+      "workers": {
+        "app/dashboard/flashback/page": {
+          "moduleId": 88280,
+          "async": false,
+          "exportedName": "getDueFlashcards",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/flashback/page": "action-browser"
+      },
+      "exportedName": "getDueFlashcards",
+      "filename": "app/actions.ts"
+    },
+    "40ac274d1345180f002b19fb12b8cd88f99fe73b5a": {
+      "workers": {
+        "app/dashboard/flashback/page": {
+          "moduleId": 88280,
+          "async": false,
+          "exportedName": "getProblemTags",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/flashback/page": "action-browser"
+      },
+      "exportedName": "getProblemTags",
+      "filename": "app/actions.ts"
+    },
+    "4092818f0e11ec9e508c95d5f3b734b1a4fa8e53eb": {
+      "workers": {
+        "app/dashboard/flashback/page": {
+          "moduleId": 88280,
+          "async": false,
+          "exportedName": "processReview",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/flashback/page": "action-browser"
+      },
+      "exportedName": "processReview",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

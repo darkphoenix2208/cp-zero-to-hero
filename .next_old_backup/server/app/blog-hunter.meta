@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/blog-hunter/layout,_N_T_/blog-hunter/page,_N_T_/blog-hunter"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/blog-hunter/__PAGE__",
+    "/blog-hunter",
+    "/_index",
+    "/_head"
+  ]
+}

@@ -1,7 +1,7 @@
 
 'use client';
 import { motion } from 'framer-motion';
-import { Sword, Brain, Activity, Users, ArrowRight, Zap, Target, Book, LayoutDashboard, Terminal, Share2, Mic, Trophy } from 'lucide-react';
+import { Sword, Brain, Activity, Users, ArrowRight, Zap, Target, Book, LayoutDashboard, Terminal, Share2, Mic, Trophy, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 
 const guideSections = [
@@ -102,6 +102,46 @@ const guideSections = [
                     <li><strong>Voice Interaction:</strong> Speak to the AI. It listens and responds with text-to-speech.</li>
                     <li><strong>Live Coding:</strong> Write code in the shared editor while explaining your thought process.</li>
                     <li><strong>Interrupts:</strong> The AI will interrupt you if you go silent for too long or make a mistake.</li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "coach",
+        title: "The Neural Coach",
+        icon: <Target size={24} className="text-violet-400" />,
+        color: "text-violet-400",
+        border: "border-violet-500/30",
+        bg: "bg-violet-500/10",
+        content: (
+            <div className="space-y-4 text-zinc-300">
+                <p>
+                    <strong>AI Semantic Search.</strong> Don't just search for "DP" or "Graphs". Describe your problem.
+                </p>
+                <ul className="list-disc list-inside space-y-2 marker:text-violet-500">
+                    <li><strong>Natural Language:</strong> "Problems about finding the shortest path in a dynamic grid."</li>
+                    <li><strong>Omni-Data:</strong> We index problems from Codeforces, AtCoder (ABC), CSES, and CodeChef.</li>
+                    <li><strong>Win Probability:</strong> The AI predicts your chance of solving it based on your rating.</li>
+                </ul>
+            </div>
+        )
+    },
+    {
+        id: "playlist",
+        title: "Playlist Generator",
+        icon: <BookOpen size={24} className="text-teal-400" />,
+        color: "text-teal-400",
+        border: "border-teal-500/30",
+        bg: "bg-teal-500/10",
+        content: (
+            <div className="space-y-4 text-zinc-300">
+                <p>
+                    <strong>Curated Training Sets.</strong> Build a custom roadmap for any topic.
+                </p>
+                <ul className="list-disc list-inside space-y-2 marker:text-teal-500">
+                    <li><strong>Topic Focus:</strong> Generate a list of 10 classic problems for "Digit DP".</li>
+                    <li><strong>Progressive Overload:</strong> Problems are sorted by difficulty to help you climb.</li>
+                    <li><strong>Reasoning:</strong> The AI explains <em>why</em> this problem is good for you.</li>
                 </ul>
             </div>
         )

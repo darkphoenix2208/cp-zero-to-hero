@@ -1,0 +1,20 @@
+{
+  "node": {
+    "008f009928c53c2db0a083573f19e21823bfa2bda7": {
+      "workers": {
+        "app/login/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/login/page.tsx [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/login/page.tsx"
+        }
+      },
+      "layer": {
+        "app/login/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/login/page.tsx"
+    }
+  },
+  "edge": {}
+}

@@ -1,0 +1,35 @@
+{
+  "node": {
+    "600dae6907ce0c28fd30a22f2014c80abe40d39d6c": {
+      "workers": {
+        "app/roadmap/page": {
+          "moduleId": 43086,
+          "async": false,
+          "exportedName": "getProblemsByRating",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/roadmap/page": "action-browser"
+      },
+      "exportedName": "getProblemsByRating",
+      "filename": "app/actions.ts"
+    },
+    "40a4ab9169a8f1d5862fbe4ee95ab1a152e43f0d1f": {
+      "workers": {
+        "app/roadmap/page": {
+          "moduleId": 43086,
+          "async": false,
+          "exportedName": "getSubmissions",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/roadmap/page": "action-browser"
+      },
+      "exportedName": "getSubmissions",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

@@ -19,7 +19,9 @@ import {
     User,
     Mic,
     Calendar,
-    Map as MapIcon
+    Map as MapIcon,
+    Target,
+    ListMusic
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -42,6 +44,7 @@ export function Navbar() {
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
         { name: 'Skills', href: '/skills', icon: Network },
         { name: 'Flashback', href: '/flashback', icon: Brain },
+        { name: 'Coach', href: '/selector', icon: Target },
         { name: 'Dojo', href: '/senpai', icon: Sparkles, shortName: 'Dojo' },
     ];
 
@@ -51,6 +54,7 @@ export function Navbar() {
         { name: 'Interview', href: '/interview', icon: Mic },
         { name: 'Contests', href: '/contests', icon: Calendar },
         { name: 'Stress', href: '/stress', icon: Zap },
+        { name: 'Playlist', href: '/playlist', icon: ListMusic },
         { name: 'Blogs', href: '/blog-hunter', icon: BookOpen },
     ];
 

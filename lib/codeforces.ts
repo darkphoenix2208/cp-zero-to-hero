@@ -50,7 +50,11 @@ export async function getCFUser(handle: string): Promise<CFUser | null> {
 
 export async function getUserSubmissions(handle: string): Promise<CFSubmission[]> {
     try {
-        const res = await fetch(`${API_BASE}/user.status?handle=${handle}`, { next: { revalidate: 0 } });
+        // Add timestamp to prevent CF Cloudflare caching
+        const res = await fetch(`${API_BASE}/user.status?handle=${handle}&t=${Date.now()}`, {
+            cache: 'no-store',
+            next: { revalidate: 0 }
+        });
         const data = await res.json();
         if (data.status === "OK") return data.result;
         return [];

@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/dashboard/layout,_N_T_/dashboard/flashback/layout,_N_T_/dashboard/flashback/page,_N_T_/dashboard/flashback"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/dashboard/flashback/__PAGE__",
+    "/dashboard/flashback",
+    "/dashboard",
+    "/_index",
+    "/_head"
+  ]
+}

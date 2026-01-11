@@ -68,6 +68,7 @@ model User {
   flashcards    ReviewQueue[]
   skills        UserSkill[]
   pinnedRivals  PinnedRival[]
+  attempts      ProblemAttempt[]
 }
 
 model VerificationToken {
@@ -185,4 +186,31 @@ model SolvedProblem {
   solvedAt  DateTime @default(now())
 
   @@unique([userId, problemId])
+}
+
+model ProblemAttempt {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemLink String
+  verdict     String   // OK, WRONG_ANSWER, etc.
+  difficulty  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, problemLink])
+  @@index([userId, verdict])
+}
+
+model ProblemEmbedding {
+  id         BigInt   @id @default(autoincrement())
+  problem_id String   @unique
+  title      String?
+  tags       String[]
+  rating     Int?
+  // embedding vector(384) - Prisma doesn't support vector type natively yet, so we ignore it or use Unsupported
+  embedding  Unsupported("vector(384)")?
+  created_at DateTime @default(now())
+
+  @@map("problem_embeddings")
 }

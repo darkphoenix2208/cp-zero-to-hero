@@ -1,0 +1,35 @@
+{
+  "node": {
+    "40425e834eff0591465653416d14b501cc717ceeed": {
+      "workers": {
+        "app/link-handle/page": {
+          "moduleId": "[project]/.next-internal/server/app/link-handle/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "verifySubmissionAuth",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/link-handle/page": "action-browser"
+      },
+      "exportedName": "verifySubmissionAuth",
+      "filename": "app/actions.ts"
+    },
+    "407c1ce181e847cb7dcc2757bfcce8163b4ee4cf8b": {
+      "workers": {
+        "app/link-handle/page": {
+          "moduleId": "[project]/.next-internal/server/app/link-handle/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "linkUserHandle",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/link-handle/page": "action-browser"
+      },
+      "exportedName": "linkUserHandle",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

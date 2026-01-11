@@ -1,0 +1,335 @@
+{
+  "node": {
+    "403ad4b38c1367a57a0d3a86e59941152b634cdb8a": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getAllFlashcards",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getAllFlashcards",
+      "filename": "app/actions.ts"
+    },
+    "4092818f0e11ec9e508c95d5f3b734b1a4fa8e53eb": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "processReview",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "processReview",
+      "filename": "app/actions.ts"
+    },
+    "409b98b21bb470a8da1c21bbe74107c4dfcb972a31": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "linkUserHandle",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "linkUserHandle",
+      "filename": "app/actions.ts"
+    },
+    "406c7118ebc12045e8526ca0652cc068c76b41dbb6": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "verifyUser",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "verifyUser",
+      "filename": "app/actions.ts"
+    },
+    "6083d5261363bece42f745e6966770544e2ecd1620": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "syncUserStats",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "syncUserStats",
+      "filename": "app/actions.ts"
+    },
+    "40a4ab9169a8f1d5862fbe4ee95ab1a152e43f0d1f": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getSubmissions",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getSubmissions",
+      "filename": "app/actions.ts"
+    },
+    "600dae6907ce0c28fd30a22f2014c80abe40d39d6c": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getProblemsByRating",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getProblemsByRating",
+      "filename": "app/actions.ts"
+    },
+    "005f06785a5d899f306fa9b3c8371926bf405aaa37": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getContests",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getContests",
+      "filename": "app/actions.ts"
+    },
+    "60185536f509322c4483aad086a70650cffd790968": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "addPinnedRival",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "addPinnedRival",
+      "filename": "app/actions.ts"
+    },
+    "40885633fc55cd99242741741cac4804d70dfaf005": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getRivals",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getRivals",
+      "filename": "app/actions.ts"
+    },
+    "60fcad8d466ed2495f2d9dfa7433e201c209c4d50a": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "removePinnedRival",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "removePinnedRival",
+      "filename": "app/actions.ts"
+    },
+    "40ba9982b4e5ee6aaf56ca9e1613b4eed9c1c95fde": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "searchProblems",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "searchProblems",
+      "filename": "app/actions.ts"
+    },
+    "40ac274d1345180f002b19fb12b8cd88f99fe73b5a": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getProblemTags",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getProblemTags",
+      "filename": "app/actions.ts"
+    },
+    "60527a52f4a33ba83d24536953584aabac552f5748": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "addToReviewQueue",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "addToReviewQueue",
+      "filename": "app/actions.ts"
+    },
+    "006de027541ff7a41e2a1096450539be577b3aafc6": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "seedSkills",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "seedSkills",
+      "filename": "app/actions.ts"
+    },
+    "40f33803ee5f20324bba4e9bd1073d79b9ef3067b5": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getUserSkills",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getUserSkills",
+      "filename": "app/actions.ts"
+    },
+    "402e8909c6a23a63ee190d05dfc79cbb808a0a224e": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getDueFlashcards",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getDueFlashcards",
+      "filename": "app/actions.ts"
+    },
+    "405dab93dc5a19cc2dac56437c6eb95f231da168b5": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getRivalActivity",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getRivalActivity",
+      "filename": "app/actions.ts"
+    },
+    "40a0f0d74b3103a71a74a3a2899581f456142b12b4": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "getRivalHistory",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "getRivalHistory",
+      "filename": "app/actions.ts"
+    },
+    "60695730cb7abd36a1656dd827dc9cacf2c6e56154": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "verifyOwnership",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "verifyOwnership",
+      "filename": "app/actions.ts"
+    },
+    "406a6002b2985acfc734ce74c1e0b314126be47ce1": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "verifySubmissionAuth",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "verifySubmissionAuth",
+      "filename": "app/actions.ts"
+    },
+    "782d3fb3a6db116059ec40a44eabcd7377c53909d7": {
+      "workers": {
+        "app/flashback/page": {
+          "moduleId": 97957,
+          "async": false,
+          "exportedName": "generateMashup",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/flashback/page": "action-browser"
+      },
+      "exportedName": "generateMashup",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

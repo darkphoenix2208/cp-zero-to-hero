@@ -5,6 +5,7 @@ import { CheatSheet } from "@/components/features/CheatSheet";
 import { Navbar } from "@/components/layout/Navbar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { SessionProvider } from "@/components/providers/SessionProvider";
+import { QueryProvider } from "@/components/providers/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground`}
       >
         <ThemeProvider
@@ -38,13 +40,15 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SessionProvider>
-            <div className="relative flex min-h-screen flex-col">
-              <Navbar />
-              <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8">
-                {children}
-              </main>
-              <CheatSheet />
-            </div>
+            <QueryProvider>
+              <div className="relative flex min-h-screen flex-col">
+                <Navbar />
+                <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8">
+                  {children}
+                </main>
+                <CheatSheet />
+              </div>
+            </QueryProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>

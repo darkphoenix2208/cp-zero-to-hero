@@ -1,8 +1,9 @@
 'use client'
 import { useState, useEffect, Suspense } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getSubmissions, syncUserStats, getProblemsByRating } from '@/app/actions'; // removed verify/login actions
 import { motion } from 'framer-motion';
-import { Trophy, Flame, Target, Sparkles, ArrowRight, Zap, Brain, Network, BookOpen, Share2, Mic } from 'lucide-react';
+import { Trophy, Flame, Target, Sparkles, ArrowRight, Zap, Brain, Network, BookOpen, Share2, Mic, ListMusic } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { UserHeatmap } from '@/components/features/UserHeatmap';
 import { RivalryWidget } from '@/components/features/RivalryWidget';
@@ -18,21 +19,52 @@ interface DashboardClientProps {
 }
 
 export function DashboardClient({ user, initialSubmissions, recommendation: initialRec, initialRivals }: DashboardClientProps) {
+    // React Query / Polling
+    const { data: latestSubmissions } = useQuery({
+        queryKey: ['cf-submissions', user.codeforcesHandle],
+        queryFn: async () => {
+            if (!user.codeforcesHandle) return [];
+            console.log("Polling Codeforces...");
+            return await getSubmissions(user.codeforcesHandle);
+        },
+        initialData: initialSubmissions,
+        refetchInterval: 1000 * 60 * 1, // Poll every 1 Minute
+        staleTime: 0, // Mark data as stale immediately to force background refetch on mount
+        refetchOnMount: true,
+    });
+
     const [submissions, setSubmissions] = useState<any[]>(initialSubmissions);
-    // ... stats logic ...
+
+    // Sync React Query data to local state & DB
+    useEffect(() => {
+        if (latestSubmissions && latestSubmissions.length > 0) {
+            setSubmissions(latestSubmissions);
+            processStats(user.codeforcesHandle, latestSubmissions, user.rating || 0);
+        }
+    }, [latestSubmissions]);
+
+    // Offline Sync (On Mount)
+    useEffect(() => {
+        const doSync = async () => {
+            if (user.id) {
+                const { syncLocalToCloud } = await import('@/services/sync');
+                const res = await syncLocalToCloud(user.id);
+                if (res.success && res.count && res.count > 0) {
+                    // Optionally show a toast here in future
+                    console.log("Synced local guest data to cloud.");
+                    // Invalidate query to refresh
+                }
+            }
+        }
+        doSync();
+    }, []);
+
     const [stats, setStats] = useState({
         streak: user.stats?.currentStreak || 0,
         totalSolved: user.stats?.totalSolved || 0,
         rank: user.rank || 'Newbie'
     });
     const [recommendation, setRecommendation] = useState<any>(initialRec);
-
-    // Initial Stats Processing (Hydration)
-    useEffect(() => {
-        if (user.codeforcesHandle && initialSubmissions.length > 0) {
-            processStats(user.codeforcesHandle, initialSubmissions, user.rating || 0);
-        }
-    }, []);
 
     const processStats = (handle: string, subs: any[], rating: number) => {
         // ... stats processing ...
@@ -79,7 +111,8 @@ export function DashboardClient({ user, initialSubmissions, recommendation: init
 
         setStats({ streak, totalSolved: solvedSet.size, rank });
 
-        // Sync to DB
+        // Sync to DB (Optimistic update or rely on server action? We keep this for now to ensure DB is fresh)
+        // Ideally checking if new data before syncing
         syncUserStats(handle, {
             currentStreak: streak,
             totalSolved: solvedSet.size,
@@ -93,7 +126,7 @@ export function DashboardClient({ user, initialSubmissions, recommendation: init
             {/* Header */}
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6 bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800 backdrop-blur-sm">
                 <img
-                    src={user.image || user.avatarUrl || "https://cdn.codeforces.com/s/97793/images/codeforces-telegram-square.png"}
+                    src={user.image || user.avatarUrl || "https://userpic.codeforces.org/no-title.jpg"}
                     alt="Avatar"
                     className="w-24 h-24 rounded-full border-4 border-zinc-800 shadow-xl"
                 />
@@ -135,12 +168,28 @@ export function DashboardClient({ user, initialSubmissions, recommendation: init
                             bg="bg-emerald-500/10 border-emerald-500/20"
                         />
                         <DashboardLink
+                            href="/playlist"
+                            title="Playlist Gen"
+                            desc="AI Curriculum"
+                            icon={<ListMusic size={20} />}
+                            color="text-teal-400"
+                            bg="bg-teal-500/10 border-teal-500/20"
+                        />
+                        <DashboardLink
                             href="/flashback"
                             title="Flashback"
                             desc="SRS Memory"
                             icon={<Brain size={20} />}
                             color="text-pink-400"
                             bg="bg-pink-500/10 border-pink-500/20"
+                        />
+                        <DashboardLink
+                            href="/selector"
+                            title="Coach"
+                            desc="Neural Finder"
+                            icon={<Target size={20} />}
+                            color="text-violet-400"
+                            bg="bg-violet-500/10 border-violet-500/20"
                         />
 
                         {/* Standard Features */}
@@ -300,7 +349,6 @@ export function DashboardClient({ user, initialSubmissions, recommendation: init
                     <div className="bg-zinc-900/40 rounded-2xl border border-zinc-800/50 overflow-hidden">
                         <div className="p-4 border-b border-zinc-800/50 flex justify-between items-center">
                             <h3 className="text-xs font-bold text-zinc-500 uppercase">Rival Watch</h3>
-                            <a href="#" className="text-xs text-zinc-600 hover:text-zinc-400">Manage</a>
                         </div>
                         <div className="p-2">
                             {/* We adapt RivalryWidget to use proper user object or handle if needed. Assuming it uses props.user.handle */}

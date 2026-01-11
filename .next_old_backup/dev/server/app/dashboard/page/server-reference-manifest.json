@@ -1,0 +1,365 @@
+{
+  "node": {
+    "00496059f0f49b5dabf4e6dcac819ab681424d0d7e": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "seedSkills",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "seedSkills",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "007b6a4278a7583d5eeb7c807b01f3d6060a838fb3": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getContests",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getContests",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "00a0681c2c1a035cbcde3ca404f5fe6737f3ed14ed": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getAttempts",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getAttempts",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "4005a7e0c0e51473b88ac788247564caa04f19aca3": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "syncAttempts",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "syncAttempts",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "400abe94263e2444efe2879b2172b88d87f0c829e3": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getDueFlashcards",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getDueFlashcards",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "402b4a9c0997d4a76b85197c7335fafe97724a6616": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "verifySubmissionAuth",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "verifySubmissionAuth",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "407a66fca3aaabd63e96d5efab853d79a049c60172": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "verifyUser",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "verifyUser",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "407d536858b1e0b24ff8547889ccef43094ee68f08": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getRivals",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getRivals",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "409c55f9cf1d732a48d573e8d20b5edf3b0ca70ce5": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getRivalHistory",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getRivalHistory",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40b809e6644606863d548529d7c106a4a7c76273f8": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getAllFlashcards",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getAllFlashcards",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40c7a5b2b47eff747b7f0d0df111434c64bc8e99f3": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getSubmissions",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getSubmissions",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40d184ad70de7c9c95e3d9d23140991922e61d595c": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getRivalActivity",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "getRivalActivity",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40da21d2c535b98d4516a93ca60cf15f878a0614de": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getProblemTags",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getProblemTags",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40dd5522b985eef9a4d8c5de6caeaa23c47b77d384": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getUserSkills",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getUserSkills",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40dfaa625c6b4be5e1966980a90b8a7d1f4a375d33": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "processReview",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "processReview",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40efeb4b0c06186496d568f4d1ac9d963e23300e6e": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "searchProblems",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "searchProblems",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "40fe00d4886651e7e5413bb09d2e6011387d5e8c3e": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "linkUserHandle",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "linkUserHandle",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "601b94f256cafb68e03313fe947b7417c0bd560880": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "addToReviewQueue",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "addToReviewQueue",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "603e45402b84a174d7cc410cee8f48f509f434e604": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "verifyOwnership",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "verifyOwnership",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "60689dffee5e60a85675195a72d388f8e7cf2cdf8c": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "addPinnedRival",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "addPinnedRival",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "606a1b2146dda9ec138e7f964737f3ff120d956742": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getProblemsByRating",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "getProblemsByRating",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "60782599377b0b5854d9c50160f7ec9864a1dd2c21": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "syncUserStats",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "syncUserStats",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "60b86eb83467cb7cce27e3644348c9f011a6be8949": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "removePinnedRival",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "action-browser"
+      },
+      "exportedName": "removePinnedRival",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    },
+    "788d7eb67db524e0e2aaf8cfbf6241e4eb4e3ae030": {
+      "workers": {
+        "app/dashboard/page": {
+          "moduleId": "[project]/.gemini/antigravity/scratch/cp-zero-to-hero/.next-internal/server/app/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/.gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "generateMashup",
+          "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/dashboard/page": "rsc"
+      },
+      "exportedName": "generateMashup",
+      "filename": ".gemini/antigravity/scratch/cp-zero-to-hero/app/actions.ts"
+    }
+  },
+  "edge": {}
+}
