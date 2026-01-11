@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { pool } from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 // Global pipeline cache to prevent reloading model on every req (Hot/Cold start)
 let pipeline: any = null;
@@ -21,18 +21,17 @@ export async function POST(req: NextRequest) {
         const output = await pipeline(query, { pooling: 'mean', normalize: true });
         const embedding = JSON.stringify(Array.from(output.data));
 
-        // 2. Call Function via SQL (Pool handles connection)
-        const sql = `
+        // 2. Call Function via Prisma Raw Query
+        // Note: Prisma needs explicit casting for vector operations
+        const results: any[] = await prisma.$queryRawUnsafe(`
             SELECT * FROM match_problems(
                 $1::vector(384), 
-                $2::float, 
+                $2::double precision, 
                 $3::int
             );
-        `;
+        `, embedding, 0.3, limit);
 
-        const { rows } = await pool.query(sql, [embedding, 0.3, limit]);
-
-        return NextResponse.json({ results: rows || [] });
+        return NextResponse.json({ results: results || [] });
 
     } catch (e: any) {
         console.error("ML Search Error:", e);
