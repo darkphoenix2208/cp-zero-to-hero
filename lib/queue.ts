@@ -20,7 +20,7 @@ declare global {
 let codeQueueClient: Queue;
 
 if (!global.codeQueue) {
-    global.codeQueue = new Queue(QUEUE_NAME, { connection });
+    global.codeQueue = new Queue(QUEUE_NAME, { connection: connection as any });
 }
 codeQueueClient = global.codeQueue;
 
