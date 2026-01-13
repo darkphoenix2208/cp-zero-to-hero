@@ -39,7 +39,11 @@ CodeForge turns your journey from "Newbie" to "Grandmaster" into an RPG. Track y
 ### 7. The Neural Coach (New) 🧠
 *   **Semantic Search:** Search for problems using natural language (e.g., "DP problems about grid paths").
 *   **Omni-Platform:** Access a unified database of Codeforces, AtCoder, CSES, and CodeChef problems.
-*   **Win Prediction:** AI estimates your probability of solving a problem based on your current rating.
+### 8. Security Sentinel 🛡️
+*   **Login Alerts:** Automatically notifies users via email whenever a new login occurs.
+*   **Device Tracking:** Logs the IP address and Device Type of the login event for transparency.
+*   **Powered By:** Resend (Email API) + NextAuth Middleware.
+
 
 ---
 
@@ -84,6 +88,9 @@ CodeForge turns your journey from "Newbie" to "Grandmaster" into an RPG. Track y
     GOOGLE_CLIENT_ID="..."
     GOOGLE_CLIENT_SECRET="..."
     GROQ_API_KEY="..."
+    RESEND_API_KEY="re_..."
+    NEXT_PUBLIC_SUPABASE_URL="..."
+    NEXT_PUBLIC_SUPABASE_ANON_KEY="..."
     ```
 
 4.  **Run Database Migrations**
